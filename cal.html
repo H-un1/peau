@@ -1,0 +1,387 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>스킨케어 캘린더 - Peau Éclorée</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        /* 공통 레이아웃 스타일 */
+        body {
+            margin: 0;
+            padding: 0;
+            min-height: 100vh;
+            background: #f5f5f5;
+        }
+
+        .app-container {
+            width: 393px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            position: relative;
+            padding-bottom: 60px;
+            box-sizing: border-box;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        /* 캘린더 스타일 */
+        .calendar-content {
+            padding: 80px 16px 20px;
+        }
+
+        .routine-day {
+            margin-bottom: 24px;
+            background: white;
+            border-radius: 12px;
+            padding: 16px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.05);
+        }
+
+        .day-header {
+            display: flex;
+            align-items: center;
+            margin-bottom: 16px;
+        }
+
+        .day-title {
+            font-size: 20px;
+            font-weight: 600;
+            color: #FF4444;
+        }
+
+        .routine-steps {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+            overflow-x: auto;
+            padding: 8px 0;
+            -webkit-overflow-scrolling: touch;
+        }
+
+        .routine-step {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 8px;
+            min-width: 60px;
+        }
+
+        .step-icon {
+            width: 48px;
+            height: 48px;
+            border-radius: 50%;
+            background: #f5f5f5;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .step-icon img {
+            width: 32px;
+            height: 32px;
+            object-fit: contain;
+        }
+
+        .step-name {
+            font-size: 12px;
+            color: #666;
+            text-align: center;
+            word-break: keep-all;
+        }
+
+        .arrow-icon {
+            color: #ccc;
+            font-size: 16px;
+            flex-shrink: 0;
+        }
+
+        .routine-note {
+            margin-top: 12px;
+            padding-top: 12px;
+            border-top: 1px dashed #eee;
+            font-size: 13px;
+            color: #666;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <h1>Peau Éclorée</h1>
+            </div>
+            <div class="header-icons">
+                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="cart-btn" onclick="location.href='cart.html'"><i class="fa-solid fa-cart-shopping"></i></button>
+            </div>
+        </header>
+
+        <main class="calendar-content">
+            <!-- 마스크팩 Day -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">1일 마스크팩Day</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="모델링팩.png" alt="모델링팩">
+                        </div>
+                        <span class="step-name">모델링팩</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="나이아신아마이드.png" alt="나이아신아마이드">
+                        </div>
+                        <span class="step-name">나이아신아마이드</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="레티놀.png" alt="레티놀">
+                        </div>
+                        <span class="step-name">레티놀</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="재생크림.png" alt="재생크림">
+                        </div>
+                        <span class="step-name">재생크림</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="기능성크림.png" alt="기능성크림">
+                        </div>
+                        <span class="step-name">기능성크림</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 마스크팩 후에는 반드시 레이어를 해주세요.
+                </div>
+            </div>
+
+            <!-- 앰플 Day -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">2일 앰플Day</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="나이아신아마이드.png" alt="나이아신아마이드">
+                        </div>
+                        <span class="step-name">나이아신아마이드</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="비타민C앰플.png" alt="비타민C앰플">
+                        </div>
+                        <span class="step-name">비타민C앰플</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="미백항산화로션.png" alt="미백 항산화 로션">
+                        </div>
+                        <span class="step-name">미백 항산화 로션</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 앰플은 피부에 충분히 흡수시켜 주세요.
+                </div>
+            </div>
+
+            <!-- 저녁 루틴 -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">4일 저녁루틴</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="각질케어.png" alt="각질케어">
+                        </div>
+                        <span class="step-name">각질케어</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="히알루론산.png" alt="히알루론산">
+                        </div>
+                        <span class="step-name">히알루론산</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="홈케어기기.png" alt="홈케어기기">
+                        </div>
+                        <span class="step-name">홈케어기기</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="수분크림.png" alt="수분크림">
+                        </div>
+                        <span class="step-name">수분크림</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 저녁 루틴은 충분한 시간을 두고 천천히 해주세요.
+                </div>
+            </div>
+
+            <!-- 앰플 Day (7일차) -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">7일 앰플Day</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="나이아신아마이드.png" alt="나이아신아마이드">
+                        </div>
+                        <span class="step-name">나이아신아마이드</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="비타민C앰플.png" alt="비타민C앰플">
+                        </div>
+                        <span class="step-name">비타민C앰플</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="미백항산화로션.png" alt="미백 항산화 로션">
+                        </div>
+                        <span class="step-name">미백 항산화 로션</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 앰플은 피부에 충분히 흡수시켜 주세요.
+                </div>
+            </div>
+
+            <!-- 마스크팩 Day (8일차) -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">8일 마스크팩Day</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="모델링팩.png" alt="모델링팩">
+                        </div>
+                        <span class="step-name">모델링팩</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="나이아신아마이드.png" alt="나이아신아마이드">
+                        </div>
+                        <span class="step-name">나이아신아마이드</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="레티놀.png" alt="레티놀">
+                        </div>
+                        <span class="step-name">레티놀</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="재생크림.png" alt="재생크림">
+                        </div>
+                        <span class="step-name">재생크림</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="기능성크림.png" alt="기능성크림">
+                        </div>
+                        <span class="step-name">기능성크림</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 마스크팩 후에는 반드시 레이어를 해주세요.
+                </div>
+            </div>
+
+            <!-- 아침 루틴 (11일차) -->
+            <div class="routine-day">
+                <div class="day-header">
+                    <span class="day-title">11일 아침루틴</span>
+                </div>
+                <div class="routine-steps">
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="항산화부스터.png" alt="항산화부스터">
+                        </div>
+                        <span class="step-name">항산화부스터</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="비타민C세럼.png" alt="비타민C세럼">
+                        </div>
+                        <span class="step-name">비타민C세럼</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="히알루론산.png" alt="히알루론산">
+                        </div>
+                        <span class="step-name">히알루론산</span>
+                    </div>
+                    <i class="fas fa-arrow-right arrow-icon"></i>
+                    <div class="routine-step">
+                        <div class="step-icon">
+                            <img src="피지억제크림.png" alt="피지억제크림">
+                        </div>
+                        <span class="step-name">피지억제크림</span>
+                    </div>
+                </div>
+                <div class="routine-note">
+                    * 자외선 차단제를 꼭 발라주세요.
+                </div>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>카테고리</span>
+            </a>
+            <a href="sample.html" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>샘플</span>
+            </a>
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="benefit.html" class="nav-item">
+                <i class="fas fa-percent"></i>
+                <span>혜택</span>
+            </a>
+            <a href="mypage.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>마이페이지</span>
+            </a>
+        </nav>
+    </div>
+</body>
+</html> 

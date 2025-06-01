@@ -1,0 +1,194 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Peau Éclorée</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        /* 검색창 스타일 */
+        .search-container {
+            position: fixed;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 393px;
+            background: white;
+            padding: 10px 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 9999;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container.active {
+            transform: translate(-50%, 60px);
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 0 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .close-search-btn {
+            border: none;
+            background: none;
+            color: #666;
+            font-size: 14px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin: 0;
+            padding: 15px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 검색창 -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+            </div>
+            <button class="close-search-btn">취소</button>
+        </div>
+
+        <!-- 헤더 영역 -->
+        <header>
+            <div class="logo">
+                <h1>Peau Éclorée</h1>
+            </div>
+            <div class="header-icons">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <button class="cart-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+        </header>
+
+        <!-- 메인 컨텐츠 -->
+        <main>
+            <!-- 인기검색어 섹션 -->
+            <section class="trending-section">
+                <div class="trending-tag">
+                    <span class="tag-circle">인기검색어</span>
+                    <span class="highlight-text">1</span>
+                    <span>샘플</span>
+                </div>
+            </section>
+
+            <!-- 캘린더 섹션 -->
+            <section class="calendar-section">
+                <h2>김항공님을 위한 뷰티 캘린더</h2>
+                <a href="cal.html" style="text-decoration: none; color: inherit;">
+                    <div class="calendar-container">
+                        <!-- 캘린더는 JavaScript로 동적 생성 -->
+                    </div>
+                </a>
+            </section>
+
+            <!-- 추천 상품 섹션 -->
+            <section class="recommended-products">
+                <h2>김항공님을 위한 추천상품</h2>
+                <div class="product-grid">
+                    <a href="product1.html" class="product-card">
+                        <img src="product1.png" alt="토리든 수분크림">
+                        <h3> 다이브인 저분자 히알루론산 수딩 크림 100ml</h3>
+                        <p class="price">
+                            <span class="discount">22%</span>
+                            <span class="final-price">18,500원</span>
+                        </p>
+                    </a>
+                    <a href="product2.html" class="product-card">
+                        <img src="product2.png" alt="토리든 토너">
+                        <h3>다이브인 저분자 히알루론산 토너 200ml</h3>
+                        <p class="price">
+                            <span class="discount">23%</span>
+                            <span class="final-price">16,900원</span>
+                        </p>
+                    </a>
+                    <a href="product3.html" class="product-card">
+                        <img src="product3.png" alt="토리든 앰플">
+                        <h3>다이브인 저분자 히알루론산 앰플 50ml</h3>
+                        <p class="price">
+                            <span class="discount">25%</span>
+                            <span class="final-price">21,000원</span>
+                        </p>
+                    </a>
+                </div>
+            </section>
+        </main>
+
+        <!-- 네비게이션 바 -->
+        <nav class="bottom-nav">
+            <button class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>카테고리</span>
+            </button>
+            <a href="sample.html" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>샘플</span>
+            </a>
+            <a href="index.html" class="nav-item active">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="benefit.html" class="nav-item">
+                <i class="fas fa-percent"></i>
+                <span>혜택</span>
+            </a>
+            <a href="mypage.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>마이페이지</span>
+            </a>
+        </nav>
+    </div>
+    <script src="script.js"></script>
+    <script>
+        // 검색창 기능
+        const searchBtn = document.querySelector('.search-btn');
+        const closeSearchBtn = document.querySelector('.close-search-btn');
+        const searchContainer = document.querySelector('.search-container');
+        const searchInput = document.querySelector('.search-input');
+
+        searchBtn.addEventListener('click', () => {
+            searchContainer.classList.add('active');
+            searchInput.focus();
+        });
+
+        closeSearchBtn.addEventListener('click', () => {
+            searchContainer.classList.remove('active');
+            searchInput.value = '';
+        });
+    </script>
+</body>
+</html> 

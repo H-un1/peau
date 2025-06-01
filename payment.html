@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>결제하기 - Peau Éclorée</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <link rel="stylesheet" href="payment.css">
+</head>
+<body>
+    <div class="payment-modal">
+        <div class="product-info">
+            <img src="product-image.jpg" alt="제품 이미지" class="product-image">
+            <div class="product-details">
+                <h2>다이브인의 저분자 히알루론산 수딩 크림 100ml</h2>
+                <div class="quantity-selector">
+                    <button class="quantity-btn minus">-</button>
+                    <input type="number" value="1" min="1" class="quantity-input">
+                    <button class="quantity-btn plus">+</button>
+                </div>
+                <div class="price-info">
+                    <span class="original-price">23,700원</span>
+                    <span class="sale-price">18,500원</span>
+                </div>
+            </div>
+        </div>
+
+        <div class="delivery-info">
+            <div class="info-row">
+                <span class="label">집</span>
+                <div class="address">
+                    <p>경기도 고양시 덕양구</p>
+                    <p>항공대학로 76</p>
+                </div>
+                <button class="change-btn">변경</button>
+            </div>
+            <div class="info-row">
+                <span class="label">입출금통장</span>
+                <div class="account-info">
+                    <p>항공뱅크 100********</p>
+                </div>
+                <button class="change-btn">변경</button>
+            </div>
+        </div>
+
+        <button class="pay-button">밀어서 바로 결제</button>
+    </div>
+    <script src="payment.js"></script>
+</body>
+</html> 

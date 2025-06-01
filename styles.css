@@ -1,0 +1,571 @@
+/* 전역 스타일 */
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: 'Noto Sans KR', sans-serif;
+}
+
+body {
+    background-color: #f5f5f5;
+}
+
+.app-container {
+    width: 393px; /* iPhone 16 Pro width */
+    margin: 0 auto;
+    background-color: white;
+    min-height: 100vh;
+    position: relative;
+}
+
+/* 헤더 스타일 */
+header {
+    position: fixed;
+    top: 0;
+    width: 393px;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0 20px;
+    z-index: 1000;
+    border-bottom: 2px solid #e0e0e0;
+}
+
+.logo img {
+    height: 30px;
+}
+
+.header-icons button {
+    background: none;
+    border: none;
+    font-size: 20px;
+    margin-left: 15px;
+    cursor: pointer;
+}
+
+/* 메인 컨텐츠 스타일 */
+main {
+    padding: 70px 16px 80px;
+}
+
+/* 인기검색어 섹션 */
+.trending-section {
+    margin-bottom: 20px;
+}
+
+.trending-tag {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    padding: 10px;
+    background-color: #f5f5f5;
+    border-radius: 20px;
+    margin: 10px;
+}
+
+.tag-circle {
+    background-color: #FF3B30;
+    color: white;
+    padding: 5px 10px;
+    border-radius: 15px;
+    font-size: 12px;
+}
+
+.highlight-text {
+    color: #007AFF;
+    font-weight: bold;
+}
+
+/* 캘린더 섹션 */
+.calendar-section h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.calendar-container {
+    background-color: white;
+    border-radius: 10px;
+    padding: 15px;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+}
+
+.calendar-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.calendar-header h3 {
+    font-size: 16px;
+    font-weight: 500;
+}
+
+.week-days {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    margin-bottom: 5px;
+}
+
+.week-day {
+    text-align: center;
+    font-size: 12px;
+    font-weight: 500;
+    color: #666;
+    padding: 5px 0;
+}
+
+.calendar-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: 5px;
+    padding: 5px;
+    background-color: #f5f5f5;
+    border-radius: 10px;
+}
+
+.calendar-day {
+    aspect-ratio: 1;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    background-color: white;
+    border-radius: 5px;
+    font-size: 12px;
+    padding: 5px;
+    text-align: center;
+    color: #000;
+    position: relative;
+    border: 1px solid #eee;
+}
+
+.calendar-day:not(.has-event) .date {
+    margin-bottom: 8px;
+}
+
+.date {
+    display: block;
+    margin-bottom: 2px;
+}
+
+.calendar-day .dot {
+    width: 4px;
+    height: 4px;
+    border-radius: 50%;
+    margin-top: 2px;
+}
+
+.calendar-day .dot.mask {
+    background-color: #FF3B30;
+}
+
+.calendar-day .dot.ampoule {
+    background-color: #007AFF;
+}
+
+.calendar-day .dot.evening {
+    background-color: #5856D6;
+}
+
+.calendar-day .dot.morning {
+    background-color: #FF9500;
+}
+
+.calendar-day.weekday {
+    font-weight: bold;
+    background-color: transparent;
+}
+
+.calendar-day.empty {
+    background-color: transparent;
+    border: none;
+}
+
+.calendar-day.today {
+    background-color: white;
+    border: 2px solid #FF4444;
+    color: #FF4444;
+}
+
+.calendar-day.today .date {
+    color: #FF4444;
+}
+
+.calendar-legend {
+    display: flex;
+    justify-content: space-around;
+    flex-wrap: wrap;
+    padding: 15px 10px;
+    margin-top: 10px;
+    border-top: 1px solid #eee;
+    gap: 10px;
+}
+
+.legend-item {
+    display: flex;
+    align-items: center;
+    gap: 5px;
+    font-size: 12px;
+}
+
+.legend-dot {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+}
+
+.legend-dot.mask {
+    background-color: #FF3B30;
+}
+
+.legend-dot.ampoule {
+    background-color: #007AFF;
+}
+
+.legend-dot.evening {
+    background-color: #5856D6;
+}
+
+.legend-dot.morning {
+    background-color: #FF9500;
+}
+
+/* 추천 상품 섹션 */
+.recommended-products {
+    margin-top: 30px;
+}
+
+.recommended-products h2 {
+    font-size: 18px;
+    margin-bottom: 15px;
+}
+
+.product-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+}
+
+.product-card {
+    background: white;
+    border-radius: 10px;
+    overflow: hidden;
+    box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+    text-decoration: none;
+    color: inherit;
+    display: block;
+    transition: transform 0.2s ease-in-out;
+}
+
+.product-card:hover {
+    transform: translateY(-2px);
+}
+
+.product-card img {
+    width: 100%;
+    aspect-ratio: 1;
+    object-fit: cover;
+}
+
+.product-card h3 {
+    font-size: 12px;
+    padding: 8px;
+    color: #333;
+}
+
+.price {
+    padding: 0 8px 8px;
+}
+
+.discount {
+    color: #ff4a4a;
+    font-weight: bold;
+    margin-right: 5px;
+    font-size: 12px;
+}
+
+.final-price {
+    font-weight: bold;
+    font-size: 12px;
+}
+
+/* 하단 네비게이션 */
+.bottom-nav {
+    position: fixed;
+    bottom: 0;
+    width: 393px;
+    height: 60px;
+    background-color: white;
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    border-top: 1px solid #eee;
+}
+
+.nav-item {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background: none;
+    border: none;
+    font-size: 11px;
+    color: #666;
+    cursor: pointer;
+}
+
+.nav-item i {
+    font-size: 20px;
+    margin-bottom: 4px;
+}
+
+.nav-item.active {
+    color: #ff4a4a;
+}
+
+/* 샘플 페이지 스타일 */
+.sample-main {
+    padding-top: 60px;
+    padding-bottom: 80px;
+}
+
+/* 카테고리 네비게이션 수정 */
+.category-nav {
+    display: flex;
+    justify-content: space-between;
+    padding: 10px 0;
+    margin: 0 10px;
+    background: white;
+    position: fixed;
+    top: 60px;
+    width: 373px;
+    z-index: 100;
+}
+
+.category-item {
+    color: #666;
+    text-decoration: none;
+    font-size: 14px;
+    padding: 5px 0;
+    position: relative;
+    flex: 1;
+    text-align: center;
+}
+
+.category-item.active {
+    color: #000;
+    font-weight: 500;
+}
+
+.category-item.active::after {
+    content: '';
+    position: absolute;
+    bottom: -10px;
+    left: 0;
+    width: 100%;
+    height: 3px;
+    background-color: #000;
+}
+
+/* 샘플 그리드 수정 */
+.sample-grid {
+    padding: 60px 16px 0;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+}
+
+.sample-item {
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    border: none;
+    padding: 0;
+}
+
+.checkbox-wrapper {
+    position: absolute;
+    top: 10px;
+    left: 10px;
+    z-index: 1;
+}
+
+.checkbox-wrapper input[type="checkbox"] {
+    display: none;
+}
+
+.checkbox-wrapper label {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    border: 2px solid #ddd;
+    border-radius: 5px;
+    background-color: white;
+    position: relative;
+    cursor: pointer;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked + label {
+    background-color: #000;
+    border-color: #000;
+}
+
+.checkbox-wrapper input[type="checkbox"]:checked + label::after {
+    content: '✓';
+    color: white;
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: 14px;
+}
+
+.sample-item img {
+    width: 100%;
+    height: 170px;
+    object-fit: cover;
+    border-radius: 8px;
+    margin-bottom: 10px;
+}
+
+.sample-info {
+    padding-top: 25px;  /* 체크박스와 텍스트가 겹치지 않도록 상단 여백 추가 */
+}
+
+.sample-info h3 {
+    font-size: 14px;
+    font-weight: 500;
+    margin-bottom: 4px;
+    padding-top: 5px;  /* 추가 여백 */
+}
+
+.sample-info p {
+    font-size: 13px;
+    color: #666;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.sample-ingredients {
+    font-size: 12px;
+    color: #999;
+    margin-bottom: 8px;
+    line-height: 1.4;
+}
+
+.sample-tags {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px;
+    margin-bottom: 6px;
+}
+
+.tag {
+    font-size: 11px;
+    padding: 4px 8px;
+    border-radius: 4px;
+    background-color: #f5f5f5;
+    color: #666;
+}
+
+.sample-status {
+    font-size: 12px;
+    color: #999;
+    margin-top: auto;
+}
+
+.sample-apply-btn {
+    position: fixed;
+    bottom: 70px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 360px;
+    padding: 15px;
+    background-color: #000;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    font-size: 16px;
+    font-weight: 500;
+    cursor: pointer;
+}
+
+/* 로고 이미지 스타일 수정 */
+.logo-img {
+    height: 24px;
+}
+
+/* 검색창 스타일 */
+.search-container {
+    position: fixed;
+    top: 0;
+    left: 50%;
+    transform: translateX(-50%) translateY(-100%);
+    width: 393px;
+    background: #f5f5f5;
+    padding: 10px 16px;
+    transition: transform 0.3s ease-in-out;
+    z-index: 9999;
+    box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+}
+
+.search-container.active {
+    transform: translateX(-50%) translateY(0);
+}
+
+.search-wrapper {
+    position: relative;
+    display: flex;
+    align-items: center;
+}
+
+.search-input {
+    width: 100%;
+    height: 40px;
+    padding: 0 40px 0 16px;
+    border: 1px solid #ddd;
+    border-radius: 20px;
+    font-size: 14px;
+    background: #f5f5f5;
+}
+
+.search-input:focus {
+    outline: none;
+    border-color: #333;
+}
+
+.search-close {
+    position: absolute;
+    right: 12px;
+    top: 50%;
+    transform: translateY(-50%);
+    border: none;
+    background: none;
+    padding: 0;
+    cursor: pointer;
+    color: #666;
+}
+
+.search-close i {
+    font-size: 18px;
+}
+
+/* 검색창 활성화 시 배경 오버레이 */
+.search-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    background: rgba(0,0,0,0.3);
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease;
+    z-index: 9998;
+}
+
+.search-overlay.active {
+    opacity: 1;
+    visibility: visible;
+} 

@@ -1,0 +1,835 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>장바구니 - Peau Éclorée</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+    <style>
+        .cart-container {
+            padding: 20px 16px;
+        }
+
+        .cart-header {
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .cart-header h2 {
+            font-size: 18px;
+            font-weight: 500;
+        }
+
+        .cart-actions {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 10px 0;
+            border-bottom: 1px solid #eee;
+            margin-bottom: 15px;
+        }
+
+        .select-all-wrapper {
+            color: #666;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+            background: white;
+        }
+
+        .select-all-wrapper input[type="checkbox"] {
+            display: none;
+        }
+
+        .delete-selected {
+            color: #666;
+            font-size: 13px;
+            cursor: pointer;
+            padding: 4px 8px;
+            border: 1px solid #ddd;
+            border-radius: 4px;
+        }
+
+        .delete-item {
+            color: #666;
+            font-size: 12px;
+            cursor: pointer;
+            position: absolute;
+            right: 0;
+            text-decoration: underline;
+        }
+
+        .cart-tabs {
+            display: flex;
+            gap: 20px;
+            margin-bottom: 20px;
+            border-bottom: 1px solid #eee;
+        }
+
+        .cart-tab {
+            padding: 10px 0;
+            font-size: 15px;
+            color: #666;
+            position: relative;
+            cursor: pointer;
+        }
+
+        .cart-tab.active {
+            color: #000;
+            font-weight: 500;
+        }
+
+        .cart-tab.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background-color: #000;
+        }
+
+        .cart-items {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .cart-item {
+            display: flex;
+            gap: 15px;
+            padding: 15px;
+            background: white;
+            border-radius: 12px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.04);
+            position: relative;
+        }
+
+        .cart-item-checkbox {
+            position: absolute;
+            top: 15px;
+            left: 15px;
+        }
+
+        .cart-item-image {
+            width: 80px;
+            height: 80px;
+            border-radius: 8px;
+            object-fit: cover;
+            margin-left: 25px;
+        }
+
+        .cart-item-info {
+            flex: 1;
+        }
+
+        .cart-item-name {
+            font-size: 14px;
+            margin-bottom: 6px;
+            display: flex;
+            align-items: center;
+        }
+
+        .cart-item-price {
+            font-size: 15px;
+            font-weight: 500;
+            color: #FF4444;
+            margin-bottom: 10px;
+            display: flex;
+            align-items: center;
+            gap: 6px;
+        }
+
+        .cart-item-quantity {
+            display: flex;
+            align-items: center;
+            gap: 8px;
+            position: relative;
+            padding-right: 40px;
+        }
+
+        .quantity-btn {
+            width: 24px;
+            height: 24px;
+            border: 1px solid #ddd;
+            border-radius: 50%;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 14px;
+            cursor: pointer;
+            flex-shrink: 0;
+        }
+
+        .quantity-controls {
+            display: flex;
+            align-items: center;
+            gap: 3px;
+        }
+
+        .quantity-input {
+            width: 30px;
+            text-align: center;
+            border: none;
+            font-size: 14px;
+            padding: 0;
+            margin: 0 4px;
+        }
+
+        .quantity-btn.plus {
+            margin-left: -9px;
+        }
+
+        .d-day {
+            position: relative;
+            display: inline-block;
+            background: #FF4444;
+            color: white;
+            padding: 2px 6px;
+            border-radius: 4px;
+            font-size: 11px;
+            font-weight: 500;
+            vertical-align: middle;
+        }
+
+        .related-sample {
+            margin-top: 10px;
+            padding: 15px;
+            background: #f9f9f9;
+            border-radius: 8px;
+        }
+
+        .related-sample-title {
+            font-size: 13px;
+            font-weight: 500;
+            color: #333;
+            margin-bottom: 12px;
+        }
+
+        .related-sample-item {
+            display: flex;
+            align-items: center;
+            gap: 12px;
+        }
+
+        .related-sample-image {
+            width: 50px;
+            height: 50px;
+            border-radius: 6px;
+            object-fit: cover;
+        }
+
+        .related-sample-info {
+            flex: 1;
+        }
+
+        .related-sample-name {
+            font-size: 13px;
+            margin-bottom: 4px;
+        }
+
+        .related-sample-description {
+            font-size: 12px;
+            color: #666;
+        }
+
+        .sample-checkbox {
+            width: 20px;
+            height: 20px;
+            margin-right: 8px;
+        }
+
+        .cart-summary {
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 20px 16px;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.06);
+            width: 393px;
+            margin: 0 auto;
+            box-sizing: border-box;
+        }
+
+        .cart-total {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin-bottom: 15px;
+        }
+
+        .cart-total-label {
+            font-size: 15px;
+            color: #666;
+        }
+
+        .cart-total-price {
+            font-size: 18px;
+            font-weight: 600;
+        }
+
+        .checkout-btn {
+            width: 100%;
+            height: 48px;
+            background: #333;
+            color: white;
+            border: none;
+            border-radius: 8px;
+            font-size: 16px;
+            font-weight: 500;
+            cursor: pointer;
+        }
+
+        .empty-cart {
+            text-align: center;
+            padding: 60px 0;
+            color: #666;
+        }
+
+        .empty-cart i {
+            font-size: 48px;
+            color: #ddd;
+            margin-bottom: 15px;
+        }
+
+        /* 검색창 스타일 */
+        .search-container {
+            position: fixed;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 393px;
+            background: white;
+            padding: 10px 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 9999;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container.active {
+            transform: translate(-50%, 60px);
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 0 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .close-search-btn {
+            border: none;
+            background: none;
+            color: #666;
+            font-size: 14px;
+            padding: 8px;
+            cursor: pointer;
+        }
+
+        .logo h1 {
+            font-size: 24px;
+            margin: 0;
+            padding: 15px 0;
+        }
+
+        /* 캘린더 스타일 */
+        .calendar-content {
+            padding: 80px 16px 20px;
+        }
+
+        /* 장바구니 컨텐츠 영역 스크롤 스타일 추가 */
+        .cart-content {
+            max-height: calc(100vh - 250px);
+            overflow-y: auto;
+            padding-bottom: 20px;
+        }
+
+        /* 스크롤바 스타일링 */
+        .cart-content::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .cart-content::-webkit-scrollbar-track {
+            background: #f1f1f1;
+            border-radius: 3px;
+        }
+
+        .cart-content::-webkit-scrollbar-thumb {
+            background: #ccc;
+            border-radius: 3px;
+        }
+
+        .cart-content::-webkit-scrollbar-thumb:hover {
+            background: #999;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <!-- 검색창 -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+            </div>
+            <button class="close-search-btn">취소</button>
+        </div>
+
+        <header>
+            <div class="logo">
+                <h1>Peau Éclorée</h1>
+            </div>
+            <div class="header-icons">
+                <button class="search-btn"><i class="fas fa-search"></i></button>
+                <button class="cart-btn"><i class="fas fa-shopping-cart"></i></button>
+            </div>
+        </header>
+
+        <main class="cart-container">
+            <div class="cart-header">
+                <h2>장바구니</h2>
+            </div>
+
+            <div class="cart-tabs">
+                <div class="cart-tab active" data-tab="products">상품 (<span id="products-count">0</span>)</div>
+                <div class="cart-tab" data-tab="samples">샘플 (<span id="samples-count">0</span>)</div>
+            </div>
+
+            <!-- 전체 선택 및 선택 삭제 버튼 추가 -->
+            <div class="cart-actions">
+                <label class="select-all-wrapper">
+                    <input type="checkbox" id="select-all">
+                    전체선택
+                </label>
+                <button class="delete-selected">선택 삭제</button>
+            </div>
+
+            <div class="cart-content">
+                <div class="cart-items" id="products-items">
+                    <!-- 상품 아이템들은 JavaScript로 동적 생성 -->
+                </div>
+                <div class="cart-items" id="samples-items" style="display: none;">
+                    <!-- 샘플 아이템들은 JavaScript로 동적 생성 -->
+                </div>
+            </div>
+        </main>
+
+        <div class="cart-summary">
+            <div class="cart-total">
+                <span class="cart-total-label">총 결제금액</span>
+                <span class="cart-total-price">0원</span>
+            </div>
+            <button class="checkout-btn" onclick="location.href='order.html'">구매하기</button>
+        </div>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>카테고리</span>
+            </a>
+            <a href="sample.html" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>샘플</span>
+            </a>
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="benefit.html" class="nav-item">
+                <i class="fas fa-percent"></i>
+                <span>혜택</span>
+            </a>
+            <a href="mypage.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>마이페이지</span>
+            </a>
+        </nav>
+    </div>
+
+    <script>
+        // 장바구니 탭 전환
+        const cartTabs = document.querySelectorAll('.cart-tab');
+        const productsItems = document.getElementById('products-items');
+        const samplesItems = document.getElementById('samples-items');
+
+        cartTabs.forEach(tab => {
+            tab.addEventListener('click', () => {
+                cartTabs.forEach(t => t.classList.remove('active'));
+                tab.classList.add('active');
+
+                if (tab.dataset.tab === 'products') {
+                    productsItems.style.display = 'flex';
+                    samplesItems.style.display = 'none';
+                } else {
+                    productsItems.style.display = 'none';
+                    samplesItems.style.display = 'flex';
+                }
+                updateTotal();
+            });
+        });
+
+        // 전체 선택 기능
+        const selectAllCheckbox = document.getElementById('select-all');
+        
+        selectAllCheckbox.addEventListener('change', function() {
+            const currentTab = document.querySelector('.cart-tab.active').dataset.tab;
+            const currentItems = document.querySelectorAll(`#${currentTab}-items .cart-item-checkbox`);
+            
+            currentItems.forEach(checkbox => {
+                checkbox.checked = this.checked;
+            });
+            updateTotal();
+        });
+
+        // 선택 삭제 기능
+        document.querySelector('.delete-selected').addEventListener('click', function() {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+            const currentTab = document.querySelector('.cart-tab.active').dataset.tab;
+            const selectedItems = document.querySelectorAll(`#${currentTab}-items .cart-item-checkbox:checked`);
+            
+            selectedItems.forEach(checkbox => {
+                const cartItem = checkbox.closest('.cart-item');
+                const itemId = cartItem.dataset.id;
+                const itemType = cartItem.dataset.type;
+                
+                if (itemType === 'product') {
+                    cartData.products = cartData.products.filter(p => p.id !== itemId);
+                } else {
+                    cartData.samples = cartData.samples.filter(s => s.id !== itemId);
+                }
+                cartItem.remove();
+            });
+            
+            localStorage.setItem('cart', JSON.stringify(cartData));
+            updateProductCount();
+            updateTotal();
+        });
+
+        // 개별 삭제 기능
+        function setupDeleteButtons() {
+            document.querySelectorAll('.delete-item').forEach(button => {
+                button.addEventListener('click', function() {
+                    const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+                    const cartItem = this.closest('.cart-item');
+                    const itemId = cartItem.dataset.id;
+                    const itemType = cartItem.dataset.type;
+                    
+                    if (itemType === 'product') {
+                        cartData.products = cartData.products.filter(p => p.id !== itemId);
+                    } else {
+                        cartData.samples = cartData.samples.filter(s => s.id !== itemId);
+                    }
+                    
+                    localStorage.setItem('cart', JSON.stringify(cartData));
+                    cartItem.remove();
+                    updateProductCount();
+                    updateTotal();
+                });
+            });
+        }
+
+        // 페이지 로드 시 삭제 버튼 이벤트 설정
+        document.addEventListener('DOMContentLoaded', setupDeleteButtons);
+
+        // loadCartItems 함수 호출 후에도 삭제 버튼 이벤트 설정
+        const originalLoadCartItems = loadCartItems;
+        loadCartItems = function() {
+            originalLoadCartItems();
+            setupDeleteButtons();
+        };
+
+        // 상품 개수 업데이트
+        function updateProductCount() {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+            let totalProductQuantity = 0;
+            let totalSampleQuantity = 0;
+
+            // 각 상품의 수량을 합산
+            cartData.products.forEach(product => {
+                totalProductQuantity += product.quantity;
+            });
+
+            // 각 샘플의 수량을 합산
+            cartData.samples.forEach(sample => {
+                totalSampleQuantity += sample.quantity;
+            });
+
+            // 탭에 개수 표시 업데이트
+            document.getElementById('products-count').textContent = totalProductQuantity;
+            document.getElementById('samples-count').textContent = totalSampleQuantity;
+        }
+
+        // 페이지 로드 시 장바구니 아이템 로드
+        document.addEventListener('DOMContentLoaded', function() {
+            loadCartItems();
+            updateProductCount();
+        });
+
+        // 수량 조절 기능
+        function updateQuantity(itemId, itemType, change) {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+            const items = itemType === 'product' ? cartData.products : cartData.samples;
+            const item = items.find(i => i.id === itemId);
+
+            if (item) {
+                const newQuantity = Math.max(1, item.quantity + change);
+                if (newQuantity === item.quantity) return; // 수량이 변경되지 않으면 리턴
+
+                // 현재 체크박스 상태 저장
+                const checkbox = document.querySelector(`.cart-item[data-id="${itemId}"] .cart-item-checkbox`);
+                const isChecked = checkbox ? checkbox.checked : false;
+                
+                item.quantity = newQuantity;
+                item.checked = isChecked; // 체크박스 상태 유지
+                
+                localStorage.setItem('cart', JSON.stringify(cartData));
+
+                // 수량 입력 필드 업데이트
+                const quantityInput = document.querySelector(`.cart-item[data-id="${itemId}"] .quantity-input`);
+                if (quantityInput) {
+                    quantityInput.value = newQuantity;
+                }
+
+                // 총 상품 개수 업데이트
+                updateProductCount();
+                updateTotal();
+            }
+        }
+
+        // D-day 계산 함수
+        function calculateDday(startDate, duration) {
+            const today = new Date();
+            const start = new Date(startDate);
+            const endDate = new Date(start.getTime() + duration * 24 * 60 * 60 * 1000);
+            const daysLeft = Math.ceil((endDate - today) / (1000 * 60 * 60 * 24));
+            return daysLeft;
+        }
+
+        // 장바구니 데이터 로드
+        function loadCartItems() {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+            
+            // 상품 아이템 렌더링
+            if (cartData.products.length === 0) {
+                productsItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-shopping-cart"></i>
+                        <p>장바구니에 담긴 상품이 없습니다.</p>
+                    </div>
+                `;
+            } else {
+                productsItems.innerHTML = cartData.products.map(item => {
+                    const isHyaluronicCream = item.name.includes('히알루론산 수딩 크림');
+                    const dday = isHyaluronicCream ? 5 : calculateDday(item.purchaseDate || new Date(), item.usageDuration || 30);
+                    const relatedSample = cartData.samples.find(sample => sample.productId === item.id);
+                    
+                    return `
+                        <div class="cart-item" data-id="${item.id}" data-type="product">
+                            <input type="checkbox" class="cart-item-checkbox" ${item.checked ? 'checked' : ''}>
+                            <img src="product1.png" alt="${item.name.replace('다이브인의', '다이브인')}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name.replace('다이브인의', '다이브인')}</div>
+                                <div class="cart-item-price">
+                                    ${item.price.toLocaleString()}원
+                                    ${isHyaluronicCream ? '<div class="d-day">D-5</div>' : ''}
+                                </div>
+                                <div class="cart-item-quantity">
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn minus" onclick="updateQuantity('${item.id}', 'product', -1)">-</button>
+                                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" readonly>
+                                        <button class="quantity-btn plus" onclick="updateQuantity('${item.id}', 'product', 1)">+</button>
+                                    </div>
+                                    <span class="delete-item">삭제</span>
+                                </div>
+                                ${dday <= 5 && !isHyaluronicCream ? `<div class="d-day">D-${dday}</div>` : ''}
+                                ${relatedSample ? `
+                                    <div class="related-sample">
+                                        <div class="related-sample-title">셀플 선택</div>
+                                        <div class="related-sample-item">
+                                            <input type="checkbox" class="sample-checkbox" ${relatedSample.checked ? 'checked' : ''}>
+                                            <img src="${relatedSample.image}" alt="${relatedSample.name}" class="related-sample-image">
+                                            <div class="related-sample-info">
+                                                <div class="related-sample-name">${relatedSample.name}</div>
+                                                <div class="related-sample-description">${relatedSample.description || ''}</div>
+                                                <div style="color: #666; font-size: 12px; margin-top: 4px;">무료 증정</div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                ` : ''}
+                            </div>
+                        </div>
+                    `;
+                }).join('');
+            }
+
+            // 샘플 아이템 렌더링
+            if (cartData.samples.filter(s => !s.productId).length === 0) {
+                samplesItems.innerHTML = `
+                    <div class="empty-cart">
+                        <i class="fas fa-gift"></i>
+                        <p>장바구니에 담긴 샘플이 없습니다.</p>
+                    </div>
+                `;
+            } else {
+                samplesItems.innerHTML = cartData.samples
+                    .filter(item => !item.productId)
+                    .map(item => `
+                        <div class="cart-item" data-id="${item.id}" data-type="sample">
+                            <input type="checkbox" class="cart-item-checkbox" ${item.checked ? 'checked' : ''}>
+                            <img src="${item.image}" alt="${item.name}" class="cart-item-image">
+                            <div class="cart-item-info">
+                                <div class="cart-item-name">${item.name}</div>
+                                <div class="cart-item-price">
+                                    ${item.name.includes('히알루론산 에센스') || item.name.includes('바이오젤') ? '무료' : '2,000원'}
+                                </div>
+                                <div class="cart-item-quantity">
+                                    <div class="quantity-controls">
+                                        <button class="quantity-btn minus" onclick="updateQuantity('${item.id}', 'sample', -1)">-</button>
+                                        <input type="number" class="quantity-input" value="${item.quantity}" min="1" readonly>
+                                        <button class="quantity-btn plus" onclick="updateQuantity('${item.id}', 'sample', 1)">+</button>
+                                    </div>
+                                    <span class="delete-item">삭제</span>
+                                </div>
+                            </div>
+                        </div>
+                    `).join('');
+            }
+
+            updateProductCount();
+            updateTotal();
+            setupDeleteButtons();
+        }
+
+        // 총 금액 업데이트
+        function updateTotal() {
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+            const checkedProducts = document.querySelectorAll('.cart-item[data-type="product"] .cart-item-checkbox:checked');
+            const checkedSamples = document.querySelectorAll('.cart-item[data-type="sample"] .cart-item-checkbox:checked');
+            let total = 0;
+
+            checkedProducts.forEach(checkbox => {
+                const cartItem = checkbox.closest('.cart-item');
+                const itemId = cartItem.dataset.id;
+                const product = cartData.products.find(p => p.id === itemId);
+                if (product) {
+                    total += product.price * product.quantity;
+                }
+            });
+
+            checkedSamples.forEach(checkbox => {
+                const cartItem = checkbox.closest('.cart-item');
+                const itemId = cartItem.dataset.id;
+                const sample = cartData.samples.find(s => s.id === itemId);
+                if (sample) {
+                    // 히알루론산 에센스와 바이오젤은 무료
+                    if (!sample.name.includes('히알루론산 에센스') && !sample.name.includes('바이오젤')) {
+                        total += 2000 * sample.quantity;
+                    }
+                }
+            });
+
+            document.querySelector('.cart-total-price').textContent = `${total.toLocaleString()}원`;
+        }
+
+        // 체크박스 변경 이벤트
+        document.addEventListener('change', (e) => {
+            if (e.target.classList.contains('cart-item-checkbox')) {
+                const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+                const cartItem = e.target.closest('.cart-item');
+                const itemId = cartItem.dataset.id;
+                const itemType = cartItem.dataset.type;
+                
+                if (itemType === 'product') {
+                    const product = cartData.products.find(p => p.id === itemId);
+                    if (product) {
+                        product.checked = e.target.checked;
+                    }
+                } else {
+                    const sample = cartData.samples.find(s => s.id === itemId);
+                    if (sample) {
+                        sample.checked = e.target.checked;
+                    }
+                }
+                
+                localStorage.setItem('cart', JSON.stringify(cartData));
+                updateTotal();
+            }
+        });
+
+        // 검색 기능 관련 스크립트 추가
+        const searchBtn = document.querySelector('.search-btn');
+        const searchContainer = document.querySelector('.search-container');
+        const searchOverlay = document.querySelector('.search-overlay');
+        const searchClose = document.querySelector('.search-close');
+        const searchInput = document.querySelector('.search-input');
+
+        // 검색창 열기
+        searchBtn.addEventListener('click', () => {
+            searchContainer.classList.add('active');
+            searchOverlay.classList.add('active');
+            searchInput.focus();
+        });
+
+        // 검색창 닫기
+        function closeSearch() {
+            searchContainer.classList.remove('active');
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+        }
+
+        searchClose.addEventListener('click', closeSearch);
+        searchOverlay.addEventListener('click', closeSearch);
+
+        // ESC 키로 검색창 닫기
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape') {
+                closeSearch();
+            }
+        });
+
+        // 검색 입력 처리
+        searchInput.addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                const searchTerm = searchInput.value.trim();
+                if (searchTerm) {
+                    // 여기에 검색 처리 로직 추가
+                    console.log('검색어:', searchTerm);
+                    closeSearch();
+                }
+            }
+        });
+    </script>
+</body>
+</html> 
