@@ -93,17 +93,29 @@
         .category-nav {
             display: flex;
             justify-content: space-between;
-            margin-bottom: 10px;
+            margin: -5px 0 10px 0;
             border-bottom: 1px solid #eee;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            background: white;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
         }
 
         .category-item {
-            padding: 12px 0;
+            padding: 12px 20px;
             color: #666;
             text-decoration: none;
             font-size: 15px;
             position: relative;
             white-space: nowrap;
+            flex: 1;
+            text-align: center;
+            transition: color 0.3s ease;
         }
 
         .category-item.active {
@@ -119,6 +131,11 @@
             width: 100%;
             height: 2px;
             background: #000;
+            transition: width 0.3s ease;
+        }
+
+        .category-item:hover {
+            color: #000;
         }
     </style>
 </head>
@@ -145,7 +162,7 @@
 
         <main class="sample-main">
             <!-- 상단 카테고리 메뉴 -->
-            <nav class="category-nav" style="padding: 0 16px; width: 100%; box-sizing: border-box;">
+            <nav class="category-nav">
                 <a href="#" class="category-item active">홈</a>
                 <a href="#" class="category-item">토너</a>
                 <a href="#" class="category-item">앰플</a>
