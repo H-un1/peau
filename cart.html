@@ -652,18 +652,31 @@
             } else {
                 productsItems.innerHTML = cartData.products.map(item => {
                     const isHyaluronicCream = item.name.includes('히알루론산 수딩 크림');
-                    const dday = isHyaluronicCream ? 5 : calculateDday(item.purchaseDate || new Date(), item.usageDuration || 30);
+                    const isHyaluronicAmpoule = item.name.includes('히알루론산 앰플');
+                    const isHyaluronicToner = item.name.includes('히알루론산 토너');
+                    let dday;
+                    
+                    if (isHyaluronicCream) {
+                        dday = 5;
+                    } else if (isHyaluronicAmpoule) {
+                        dday = 8;
+                    } else if (isHyaluronicToner) {
+                        dday = 3;
+                    } else {
+                        dday = calculateDday(item.purchaseDate || new Date(), item.usageDuration || 30);
+                    }
+                    
                     const relatedSample = cartData.samples.find(sample => sample.productId === item.id);
                     
                     return `
                         <div class="cart-item" data-id="${item.id}" data-type="product">
                             <input type="checkbox" class="cart-item-checkbox" ${item.checked ? 'checked' : ''}>
-                            <img src="product1.png" alt="${item.name.replace('다이브인의', '다이브인')}" class="cart-item-image">
+                            <img src="${item.id === 'dive-in-toner' ? 'product2.png' : item.id === 'dive-in-ampoule' ? 'product3.png' : 'product1.png'}" alt="${item.name.replace('다이브인의', '다이브인')}" class="cart-item-image">
                             <div class="cart-item-info">
                                 <div class="cart-item-name">${item.name.replace('다이브인의', '다이브인')}</div>
                                 <div class="cart-item-price">
                                     ${item.price.toLocaleString()}원
-                                    ${isHyaluronicCream ? '<div class="d-day">D-5</div>' : ''}
+                                    ${(isHyaluronicCream || isHyaluronicAmpoule || isHyaluronicToner) ? `<div class="d-day">D-${dday}</div>` : ''}
                                 </div>
                                 <div class="cart-item-quantity">
                                     <div class="quantity-controls">
@@ -673,7 +686,6 @@
                                     </div>
                                     <span class="delete-item">삭제</span>
                                 </div>
-                                ${dday <= 5 && !isHyaluronicCream ? `<div class="d-day">D-${dday}</div>` : ''}
                                 ${relatedSample ? `
                                     <div class="related-sample">
                                         <div class="related-sample-title">셀플 선택</div>

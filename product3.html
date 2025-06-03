@@ -1,0 +1,448 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Peau Éclorée - 상품 상세</title>
+    <link rel="stylesheet" href="styles.css">
+    <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        .product-detail {
+            padding: 20px;
+        }
+
+        .product-images {
+            position: relative;
+            margin-bottom: 20px;
+        }
+
+        .product-image-slider {
+            width: 100%;
+            height: 300px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .product-image-slider img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        .slider-dots {
+            display: flex;
+            justify-content: center;
+            gap: 8px;
+            margin-top: 10px;
+        }
+
+        .dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background-color: #ddd;
+        }
+
+        .dot.active {
+            background-color: #333;
+        }
+
+        .product-info {
+            margin-top: 20px;
+        }
+
+        .product-brand {
+            font-size: 14px;
+            color: #666;
+            margin-bottom: 5px;
+        }
+
+        .product-name {
+            font-size: 18px;
+            font-weight: 500;
+            margin-bottom: 10px;
+        }
+
+        .product-rating {
+            color: #FFD700;
+            margin-bottom: 5px;
+        }
+
+        .product-price {
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
+        .original-price {
+            color: #999;
+            text-decoration: line-through;
+            font-size: 14px;
+        }
+
+        .discount-price {
+            color: #FF4444;
+            font-size: 20px;
+            font-weight: bold;
+        }
+
+        .discount-rate {
+            color: #FF4444;
+            font-weight: bold;
+        }
+
+        .sample-selection {
+            margin-top: 20px;
+            padding: 20px;
+            border-top: 1px solid #eee;
+        }
+
+        .sample-selection h3 {
+            font-size: 16px;
+            margin-bottom: 15px;
+        }
+
+        .sample-options {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 10px;
+        }
+
+        .sample-option {
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            padding: 10px;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: pointer;
+            transition: border-color 0.2s ease;
+        }
+
+        .sample-option input[type="radio"] {
+            display: none;
+        }
+
+        .sample-option input[type="radio"] + img {
+            width: 50px;
+            height: 50px;
+            object-fit: cover;
+            border-radius: 4px;
+        }
+
+        .sample-option input[type="radio"]:checked + img {
+            border: 2px solid #FF4444;
+        }
+
+        .sample-option input[type="radio"]:checked ~ .sample-option-info {
+            color: #FF4444;
+        }
+
+        .sample-option:has(input[type="radio"]:checked) {
+            border-color: #FF4444;
+            background-color: #FFF8F8;
+        }
+
+        .sample-option-info {
+            flex: 1;
+        }
+
+        .sample-option-name {
+            font-size: 12px;
+            margin-bottom: 4px;
+        }
+
+        .sample-option-desc {
+            font-size: 11px;
+            color: #666;
+        }
+
+        .action-buttons {
+            display: flex;
+            gap: 8px;
+            position: fixed;
+            bottom: 60px;
+            left: 0;
+            right: 0;
+            padding: 12px 16px;
+            background: white;
+            box-shadow: 0 -2px 10px rgba(0,0,0,0.1);
+            width: 393px;
+            margin: 0 auto;
+            z-index: 99;
+        }
+
+        .wishlist-btn, .cart-btn {
+            width: 44px;
+            height: 44px;
+            border: 1px solid #ddd;
+            border-radius: 8px;
+            background: white;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .wishlist-btn i, .cart-btn i {
+            font-size: 20px;
+            color: #333;
+        }
+
+        .buy-now-btn {
+            flex: 1;
+            height: 44px;
+            border: none;
+            border-radius: 8px;
+            background: #333;
+            color: white;
+            font-weight: 500;
+            font-size: 15px;
+            cursor: pointer;
+        }
+
+        .buy-now-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
+        /* 헤더 스타일 수정 */
+        header {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            padding: 15px 16px;
+            background: white;
+            position: sticky;
+            top: 0;
+            z-index: 100;
+            border-bottom: 1px solid #eee;
+        }
+
+        .logo {
+            display: flex;
+            align-items: center;
+        }
+
+        .logo-text {
+            font-size: 24px;
+            font-weight: 600;
+            color: #000;
+            text-decoration: none;
+        }
+
+        .header-icons {
+            display: flex;
+            gap: 4px;
+            align-items: center;
+        }
+
+        .header-icons button {
+            background: none;
+            border: none;
+            padding: 0;
+            cursor: pointer;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+        }
+
+        .header-icons i {
+            font-size: 22px;
+            color: #000;
+        }
+
+        /* 하단 네비게이션 스타일 추가 */
+        .bottom-nav {
+            position: fixed;
+            bottom: 0;
+            width: 393px;
+            height: 60px;
+            background: white;
+            display: flex;
+            justify-content: space-around;
+            align-items: center;
+            border-top: 1px solid #eee;
+            z-index: 100;
+        }
+    </style>
+</head>
+<body>
+    <div class="app-container">
+        <header>
+            <div class="logo">
+                <a href="index.html" class="logo-text">Peau Éclorée</a>
+            </div>
+            <div class="header-icons">
+                <button class="search-btn"><i class="fa-solid fa-magnifying-glass"></i></button>
+                <button class="cart-btn"><i class="fa-solid fa-cart-shopping"></i></button>
+            </div>
+        </header>
+
+        <main class="product-detail">
+            <div class="product-images">
+                <div class="product-image-slider">
+                    <img src="product3.png" alt="토리든 앰플">
+                </div>
+                <div class="slider-dots">
+                    <span class="dot active"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                    <span class="dot"></span>
+                </div>
+            </div>
+
+            <div class="product-info">
+                <div class="product-brand">토리든</div>
+                <h1 class="product-name">다이브인 저분자 히알루론산 앰플 50ml</h1>
+                <div class="product-rating">
+                    ★★★★★ <span style="color: #666">(756)</span>
+                </div>
+                <div class="product-price">
+                    <span class="original-price">28,000원</span>
+                    <span class="discount-rate">25%</span>
+                    <span class="discount-price">21,000원</span>
+                </div>
+            </div>
+
+            <div class="sample-selection">
+                <h3>샘플 선택</h3>
+                <div class="sample-options">
+                    <label class="sample-option">
+                        <input type="radio" name="sample" value="hyaluronic">
+                        <img src="ps1.png" alt="히알루론산 에센스">
+                        <div class="sample-option-info">
+                            <div class="sample-option-name">히알루론산 에센스</div>
+                            <div class="sample-option-desc">수분 충전 에센스 1ml x 2</div>
+                        </div>
+                    </label>
+                    <label class="sample-option">
+                        <input type="radio" name="sample" value="biogel">
+                        <img src="ps2.png" alt="바이오젤">
+                        <div class="sample-option-info">
+                            <div class="sample-option-name">바이오젤</div>
+                            <div class="sample-option-desc">진정 젤 1ml x 2</div>
+                        </div>
+                    </label>
+                </div>
+            </div>
+
+            <div class="action-buttons">
+                <button class="wishlist-btn">
+                    <i class="fa-regular fa-heart"></i>
+                </button>
+                <button class="cart-btn" onclick="addToCart()">
+                    <i class="fa-solid fa-cart-shopping"></i>
+                </button>
+                <button class="buy-now-btn" onclick="handleBuyNow()" disabled>
+                    바로구매
+                </button>
+            </div>
+        </main>
+
+        <nav class="bottom-nav">
+            <a href="#" class="nav-item">
+                <i class="fas fa-list"></i>
+                <span>카테고리</span>
+            </a>
+            <a href="sample.html" class="nav-item">
+                <i class="fas fa-gift"></i>
+                <span>샘플</span>
+            </a>
+            <a href="index.html" class="nav-item">
+                <i class="fas fa-home"></i>
+                <span>홈</span>
+            </a>
+            <a href="benefit.html" class="nav-item">
+                <i class="fas fa-percent"></i>
+                <span>혜택</span>
+            </a>
+            <a href="mypage.html" class="nav-item">
+                <i class="fas fa-user"></i>
+                <span>마이페이지</span>
+            </a>
+        </nav>
+    </div>
+    <script>
+        // 샘플 선택 및 바로구매 버튼 활성화 관리
+        const sampleInputs = document.querySelectorAll('input[name="sample"]');
+        const buyNowBtn = document.querySelector('.buy-now-btn');
+
+        sampleInputs.forEach(input => {
+            input.addEventListener('change', () => {
+                buyNowBtn.disabled = false;
+            });
+        });
+
+        function handleBuyNow() {
+            const selectedSample = document.querySelector('input[name="sample"]:checked');
+            if (!selectedSample) {
+                alert('샘플을 선택해주세요.');
+                return;
+            }
+            location.href = 'payment.html';
+        }
+
+        // 장바구니 담기 기능
+        function addToCart() {
+            const selectedSample = document.querySelector('input[name="sample"]:checked');
+            if (!selectedSample) {
+                alert('샘플을 선택해주세요.');
+                return;
+            }
+
+            const sampleOption = selectedSample.closest('.sample-option');
+            const sampleName = sampleOption.querySelector('.sample-option-name').textContent;
+            const sampleDesc = sampleOption.querySelector('.sample-option-desc').textContent;
+            const sampleImage = sampleOption.querySelector('img').src;
+
+            const productName = document.querySelector('.product-name').textContent;
+            const productPrice = parseInt(document.querySelector('.discount-price').textContent.replace(/[^0-9]/g, ''));
+            const productImage = document.querySelector('.product-image-slider img').src;
+
+            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
+
+            // 상품 추가
+            const productItem = {
+                id: 'dive-in-ampoule',
+                name: productName,
+                price: productPrice,
+                image: productImage,
+                quantity: 1
+            };
+
+            const existingProduct = cartData.products.find(item => item.id === productItem.id);
+            if (existingProduct) {
+                existingProduct.quantity += 1;
+            } else {
+                cartData.products.push(productItem);
+            }
+
+            // 선택한 샘플 추가
+            const sampleItem = {
+                id: sampleName.replace(/\s+/g, '-').toLowerCase(),
+                name: sampleName,
+                description: sampleDesc,
+                image: sampleImage,
+                quantity: 1
+            };
+
+            const existingSample = cartData.samples.find(item => item.id === sampleItem.id);
+            if (existingSample) {
+                existingSample.quantity += 1;
+            } else {
+                cartData.samples.push(sampleItem);
+            }
+
+            localStorage.setItem('cart', JSON.stringify(cartData));
+            location.href = 'cart.html';
+        }
+
+        // 상단 장바구니 아이콘 클릭 이벤트
+        document.querySelector('.header-icons .cart-btn').addEventListener('click', () => {
+            location.href = 'cart.html';
+        });
+    </script>
+</body>
+</html> 
