@@ -169,6 +169,22 @@
             margin: 0 auto;
         }
 
+        .skin-concern-grid {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .skin-concern-grid.active {
+            display: grid;
+        }
+
+        .skin-type-grid.hidden {
+            display: none;
+        }
+
         .skin-type-btn {
             background-color: #f1f1f1;
             border: none;
@@ -275,6 +291,22 @@
         .slider-button {
             display: none;
         }
+
+        .skin-concern-grid.hidden {
+            display: none;
+        }
+
+        .texture-grid {
+            display: none;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .texture-grid.active {
+            display: grid;
+        }
     </style>
 </head>
 <body>
@@ -292,7 +324,7 @@
         <!-- 상단 카테고리 메뉴 -->
         <nav class="category-nav">
             <a href="#" class="category-item active">신제품</a>
-            <a href="#" class="category-item">큐레이터</a>
+            <a href="#" class="category-item">큐레이션</a>
         </nav>
 
         <!-- 신제품 슬라이더 섹션 -->
@@ -323,12 +355,27 @@
 
         <!-- 큐레이터 섹션 -->
         <section class="curator-section">
-            <h2 class="skin-type-title">AI 큐레이터</h2>
+            <h2 class="skin-type-title">AI 큐레이션</h2>
             <div class="skin-type-grid">
-                <button class="skin-type-btn">민감</button>
-                <button class="skin-type-btn">건성</button>
                 <button class="skin-type-btn">지성</button>
+                <button class="skin-type-btn">건성</button>
+                <button class="skin-type-btn">민감</button>
                 <button class="skin-type-btn">수분부족</button>
+            </div>
+            <div class="skin-concern-grid">
+                <button class="skin-type-btn">장벽개선</button>
+                <button class="skin-type-btn">주름</button>
+                <button class="skin-type-btn">보습</button>
+                <button class="skin-type-btn">탄력</button>
+                <button class="skin-type-btn">진정</button>
+                <button class="skin-type-btn">각질</button>
+                <button class="skin-type-btn">모공</button>
+            </div>
+            <div class="texture-grid">
+                <button class="skin-type-btn">플루이드</button>
+                <button class="skin-type-btn">리치</button>
+                <button class="skin-type-btn">워터리</button>
+                <button class="skin-type-btn">일반</button>
             </div>
         </section>
 
@@ -464,10 +511,42 @@
             });
 
             // 피부타입 버튼 기능
-            const skinTypeButtons = document.querySelectorAll('.skin-type-btn');
+            const skinTypeButtons = document.querySelectorAll('.skin-type-grid .skin-type-btn');
+            const skinTypeGrid = document.querySelector('.skin-type-grid');
+            const skinConcernGrid = document.querySelector('.skin-concern-grid');
+            const skinConcernButtons = document.querySelectorAll('.skin-concern-grid .skin-type-btn');
+            const textureGrid = document.querySelector('.texture-grid');
+            const textureButtons = document.querySelectorAll('.texture-grid .skin-type-btn');
+
             skinTypeButtons.forEach(button => {
                 button.addEventListener('click', () => {
                     skinTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    
+                    setTimeout(() => {
+                        skinTypeGrid.classList.add('hidden');
+                        skinConcernGrid.classList.add('active');
+                    }, 1000);
+                });
+            });
+
+            // 피부고민 버튼 기능
+            skinConcernButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    skinConcernButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+
+                    setTimeout(() => {
+                        skinConcernGrid.classList.add('hidden');
+                        textureGrid.classList.add('active');
+                    }, 1000);
+                });
+            });
+
+            // 제형 버튼 기능
+            textureButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    textureButtons.forEach(btn => btn.classList.remove('active'));
                     button.classList.add('active');
                 });
             });
