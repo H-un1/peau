@@ -148,7 +148,7 @@
             padding: 15px;
             background: #f5f5f5;
             border-radius: 10px;
-            margin: 45px 16px 10px 16px;
+            margin: 150px 16px 10px 16px;
         }
 
         .slider-container {
@@ -172,13 +172,22 @@
 
         .slide {
             min-width: 100%;
-            height: 200px;
-            padding: 20px;
+            height: 340px;
+            padding: 0px;
             box-sizing: border-box;
-            color: white;
             display: flex;
-            flex-direction: column;
+            align-items: center;
             justify-content: center;
+            position: relative;
+        }
+
+        .slide-image {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+            left: 0;
+            top: 0;
         }
 
         .slide h2 {
@@ -192,21 +201,14 @@
             opacity: 0.9;
         }
 
-        .slide-image {
-            position: absolute;
-            right: 20px;
-            bottom: 20px;
-            width: 120px;
-            height: 120px;
-            object-fit: contain;
-        }
-
         .slider-nav {
             position: absolute;
             bottom: 15px;
-            left: 20px;
+            left: 50%;
+            transform: translateX(-50%);
             display: flex;
             gap: 8px;
+            z-index: 2;
         }
 
         .slider-dot {
@@ -251,34 +253,20 @@
             <div class="slider-container">
                 <div class="slider">
                     <div class="slide">
-                        <h2>only회헤 상품 구매시<br>포인트 최대 2배 적립!</h2>
-                        <p>회헤배송 상품 보러가기</p>
-                        <img src="point-box.png" alt="포인트 혜택" class="slide-image">
+                        <img src="high1.png" alt="신제품 1" class="slide-image">
                     </div>
                     <div class="slide">
-                        <h2>신제품 할인 혜택<br>최대 30% 할인!</h2>
-                        <p>신제품 보러가기</p>
-                        <img src="discount-box.png" alt="할인 혜택" class="slide-image">
+                        <img src="high2.png" alt="신제품 2" class="slide-image">
                     </div>
                     <div class="slide">
-                        <h2>첫 구매 고객 혜택<br>무료 배송!</h2>
-                        <p>신규 혜택 보러가기</p>
-                        <img src="delivery-box.png" alt="배송 혜택" class="slide-image">
+                        <img src="high3.png" alt="신제품 3" class="slide-image">
                     </div>
                     <div class="slide">
-                        <h2>이달의 특별 혜택<br>마스크팩 증정!</h2>
-                        <p>이벤트 상품 보러가기</p>
-                        <img src="gift-box.png" alt="증정 혜택" class="slide-image">
-                    </div>
-                    <div class="slide">
-                        <h2>리뷰 작성 시<br>적립금 2천원!</h2>
-                        <p>리뷰 작성하기</p>
-                        <img src="review-box.png" alt="리뷰 혜택" class="slide-image">
+                        <img src="high4.png" alt="신제품 4" class="slide-image">
                     </div>
                 </div>
                 <div class="slider-nav">
                     <div class="slider-dot active"></div>
-                    <div class="slider-dot"></div>
                     <div class="slider-dot"></div>
                     <div class="slider-dot"></div>
                     <div class="slider-dot"></div>
