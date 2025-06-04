@@ -93,6 +93,139 @@
         .nav-item.active {
             color: #000;
         }
+
+        /* 카테고리 네비게이션 스타일 */
+        .category-nav {
+            display: flex;
+            justify-content: space-between;
+            margin: -5px 0 10px 0;
+            border-bottom: 1px solid #eee;
+            overflow-x: auto;
+            -webkit-overflow-scrolling: touch;
+            scrollbar-width: none; /* Firefox */
+            -ms-overflow-style: none; /* IE and Edge */
+            background: white;
+        }
+
+        .category-nav::-webkit-scrollbar {
+            display: none; /* Chrome, Safari, Opera */
+        }
+
+        .category-item {
+            padding: 12px 20px;
+            color: #666;
+            text-decoration: none;
+            font-size: 15px;
+            position: relative;
+            white-space: nowrap;
+            flex: 1;
+            text-align: center;
+            transition: color 0.3s ease;
+        }
+
+        .category-item.active {
+            color: #000;
+            font-weight: 500;
+        }
+
+        .category-item.active::after {
+            content: '';
+            position: absolute;
+            bottom: -1px;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: #000;
+            transition: width 0.3s ease;
+        }
+
+        .category-item:hover {
+            color: #000;
+        }
+
+        /* 신제품 슬라이더 스타일 */
+        .new-products {
+            padding: 15px;
+            background: #f5f5f5;
+            border-radius: 10px;
+            margin: 45px 16px 10px 16px;
+        }
+
+        .slider-container {
+            position: relative;
+            width: 100%;
+            background: #8257FF;
+            border-radius: 10px;
+            overflow: hidden;
+            touch-action: pan-y pinch-zoom;
+        }
+
+        .slider {
+            display: flex;
+            transition: transform 0.3s ease-in-out;
+            cursor: grab;
+        }
+
+        .slider:active {
+            cursor: grabbing;
+        }
+
+        .slide {
+            min-width: 100%;
+            height: 200px;
+            padding: 20px;
+            box-sizing: border-box;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+        }
+
+        .slide h2 {
+            font-size: 24px;
+            margin-bottom: 15px;
+            line-height: 1.4;
+        }
+
+        .slide p {
+            font-size: 16px;
+            opacity: 0.9;
+        }
+
+        .slide-image {
+            position: absolute;
+            right: 20px;
+            bottom: 20px;
+            width: 120px;
+            height: 120px;
+            object-fit: contain;
+        }
+
+        .slider-nav {
+            position: absolute;
+            bottom: 15px;
+            left: 20px;
+            display: flex;
+            gap: 8px;
+        }
+
+        .slider-dot {
+            width: 6px;
+            height: 6px;
+            border-radius: 50%;
+            background: rgba(255, 255, 255, 0.5);
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .slider-dot.active {
+            background: white;
+        }
+
+        /* 슬라이더 버튼 제거 */
+        .slider-button {
+            display: none;
+        }
     </style>
 </head>
 <body>
@@ -106,6 +239,52 @@
                 <button class="cart-btn"><i class="fas fa-shopping-cart"></i></button>
             </div>
         </header>
+
+        <!-- 상단 카테고리 메뉴 -->
+        <nav class="category-nav">
+            <a href="#" class="category-item active">신제품</a>
+            <a href="#" class="category-item">큐레이터</a>
+        </nav>
+
+        <!-- 신제품 슬라이더 섹션 -->
+        <section class="new-products">
+            <div class="slider-container">
+                <div class="slider">
+                    <div class="slide">
+                        <h2>only회헤 상품 구매시<br>포인트 최대 2배 적립!</h2>
+                        <p>회헤배송 상품 보러가기</p>
+                        <img src="point-box.png" alt="포인트 혜택" class="slide-image">
+                    </div>
+                    <div class="slide">
+                        <h2>신제품 할인 혜택<br>최대 30% 할인!</h2>
+                        <p>신제품 보러가기</p>
+                        <img src="discount-box.png" alt="할인 혜택" class="slide-image">
+                    </div>
+                    <div class="slide">
+                        <h2>첫 구매 고객 혜택<br>무료 배송!</h2>
+                        <p>신규 혜택 보러가기</p>
+                        <img src="delivery-box.png" alt="배송 혜택" class="slide-image">
+                    </div>
+                    <div class="slide">
+                        <h2>이달의 특별 혜택<br>마스크팩 증정!</h2>
+                        <p>이벤트 상품 보러가기</p>
+                        <img src="gift-box.png" alt="증정 혜택" class="slide-image">
+                    </div>
+                    <div class="slide">
+                        <h2>리뷰 작성 시<br>적립금 2천원!</h2>
+                        <p>리뷰 작성하기</p>
+                        <img src="review-box.png" alt="리뷰 혜택" class="slide-image">
+                    </div>
+                </div>
+                <div class="slider-nav">
+                    <div class="slider-dot active"></div>
+                    <div class="slider-dot"></div>
+                    <div class="slider-dot"></div>
+                    <div class="slider-dot"></div>
+                    <div class="slider-dot"></div>
+                </div>
+            </div>
+        </section>
 
         <nav class="bottom-nav">
             <a href="category.html" class="nav-item">
@@ -130,5 +309,93 @@
             </a>
         </nav>
     </div>
+    <script>
+        document.addEventListener('DOMContentLoaded', function() {
+            const slider = document.querySelector('.slider');
+            const slides = document.querySelectorAll('.slide');
+            const dots = document.querySelectorAll('.slider-dot');
+            let currentSlide = 0;
+            const totalSlides = slides.length;
+
+            let startX;
+            let currentX;
+            let isDragging = false;
+            let currentTranslate = 0;
+            let prevTranslate = 0;
+
+            // 터치 이벤트
+            slider.addEventListener('touchstart', touchStart);
+            slider.addEventListener('touchmove', touchMove);
+            slider.addEventListener('touchend', touchEnd);
+
+            // 마우스 이벤트
+            slider.addEventListener('mousedown', touchStart);
+            slider.addEventListener('mousemove', touchMove);
+            slider.addEventListener('mouseup', touchEnd);
+            slider.addEventListener('mouseleave', touchEnd);
+
+            function touchStart(e) {
+                isDragging = true;
+                startX = getPositionX(e);
+                slider.style.transition = 'none';
+            }
+
+            function touchMove(e) {
+                if (!isDragging) return;
+                e.preventDefault();
+                currentX = getPositionX(e);
+                currentTranslate = prevTranslate + currentX - startX;
+                slider.style.transform = `translateX(${currentTranslate}px)`;
+            }
+
+            function touchEnd() {
+                isDragging = false;
+                const moveBy = currentX - startX;
+                
+                if (Math.abs(moveBy) > 100) {
+                    if (moveBy < 0) {
+                        currentSlide = (currentSlide + 1) % totalSlides; // 마지막 슬라이드에서 첫 번째로 순환
+                    } else {
+                        currentSlide = (currentSlide - 1 + totalSlides) % totalSlides; // 첫 번째 슬라이드에서 마지막으로 순환
+                    }
+                }
+
+                updateSlider();
+            }
+
+            function getPositionX(e) {
+                return e.type.includes('mouse') ? e.pageX : e.touches[0].clientX;
+            }
+
+            function updateSlider() {
+                slider.style.transition = 'transform 0.3s ease-in-out';
+                slider.style.transform = `translateX(-${currentSlide * 100}%)`;
+                prevTranslate = -currentSlide * slider.offsetWidth;
+                
+                dots.forEach((dot, index) => {
+                    dot.classList.toggle('active', index === currentSlide);
+                });
+            }
+
+            // 도트 네비게이션
+            dots.forEach((dot, index) => {
+                dot.addEventListener('click', () => {
+                    currentSlide = index;
+                    updateSlider();
+                });
+            });
+
+            // 자동 슬라이드 (5초마다)
+            setInterval(() => {
+                if (!isDragging) {
+                    currentSlide = (currentSlide + 1) % totalSlides; // 마지막 슬라이드에서 첫 번째로 순환
+                    updateSlider();
+                }
+            }, 5000);
+
+            // 브라우저 기본 드래그 방지
+            slider.addEventListener('dragstart', (e) => e.preventDefault());
+        });
+    </script>
 </body>
 </html> 

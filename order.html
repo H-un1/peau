@@ -8,8 +8,44 @@
     <link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
+        body {
+            margin: 0;
+            padding: 0;
+            background: #f5f5f5;
+        }
+
+        .app-container {
+            width: 393px;
+            margin: 0 auto;
+            background: white;
+            min-height: 100vh;
+            padding-bottom: 140px; /* 주문 요약 영역 높이만큼 패딩 추가 */
+            box-sizing: border-box;
+            position: relative;
+        }
+
         .order-container {
             padding: 20px 16px;
+            height: calc(100vh - 140px); /* 주문 요약 영역을 제외한 높이 */
+            overflow-y: auto; /* 스크롤 가능하도록 설정 */
+        }
+
+        /* 스크롤바 스타일링 */
+        .order-container::-webkit-scrollbar {
+            width: 6px;
+        }
+
+        .order-container::-webkit-scrollbar-track {
+            background: #f1f1f1;
+        }
+
+        .order-container::-webkit-scrollbar-thumb {
+            background: #888;
+            border-radius: 3px;
+        }
+
+        .order-container::-webkit-scrollbar-thumb:hover {
+            background: #555;
         }
 
         .order-header {
@@ -219,17 +255,17 @@
             </div>
         </header>
 
-        <main class="order-container">
+        <div class="order-container">
             <div class="order-header">
                 <h2>주문하기</h2>
             </div>
 
-            <section class="order-items">
+            <div class="order-items">
                 <h3 class="section-title">주문 상품</h3>
-                <div id="orderItems">
-                    <!-- JavaScript로 동적 생성 -->
+                <div id="orderItemsList">
+                    <!-- 장바구니 상품이 여기에 동적으로 추가됩니다 -->
                 </div>
-            </section>
+            </div>
 
             <section class="delivery-info">
                 <h3 class="section-title">배송 정보</h3>
@@ -272,110 +308,64 @@
                     </label>
                 </div>
             </section>
-        </main>
+        </div>
 
         <div class="order-summary">
             <div class="order-total">
                 <span class="order-total-label">총 결제금액</span>
-                <span class="order-total-price">0원</span>
+                <span class="order-total-price" id="totalPrice">0원</span>
             </div>
-            <button class="order-btn" onclick="placeOrder()">결제하기</button>
+            <button class="order-btn" onclick="processOrder()">결제하기</button>
         </div>
     </div>
 
     <script>
-        // 주문 상품 로드
-        function loadOrderItems() {
+        document.addEventListener('DOMContentLoaded', function() {
+            // 장바구니에서 상품 정보 가져오기
             const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
-            const selectedProducts = cartData.products.filter(item => item.checked);
-            const selectedSamples = cartData.samples.filter(item => item.checked);
-            const orderItemsContainer = document.querySelector('.order-items');
-            
-            let orderItemsHTML = '';
+            const orderItemsList = document.getElementById('orderItemsList');
+            let totalAmount = 0;
 
-            // 선택된 상품 표시
-            selectedProducts.forEach(item => {
-                orderItemsHTML += `
-                    <div class="order-item">
-                        <img src="${item.image}" alt="${item.name}" class="order-item-image">
-                        <div class="order-item-info">
-                            <div class="order-item-name">${item.name}</div>
-                            <div class="order-item-quantity">수량: ${item.quantity}개</div>
-                            <div class="order-item-price">${(item.price * item.quantity).toLocaleString()}원</div>
-                        </div>
-                    </div>
-                `;
+            // 일반 상품 추가
+            cartData.products.forEach(item => {
+                const itemElement = createOrderItem(item);
+                orderItemsList.appendChild(itemElement);
+                totalAmount += item.price * item.quantity;
             });
 
-            // 선택된 샘플 표시
-            selectedSamples.forEach(item => {
-                const isFree = item.name.includes('히알루론산 에센스') || item.name.includes('바이오젤');
-                orderItemsHTML += `
-                    <div class="order-item">
-                        <img src="${item.image}" alt="${item.name}" class="order-item-image">
-                        <div class="order-item-info">
-                            <div class="order-item-name">${item.name}</div>
-                            <div class="order-item-quantity">수량: ${item.quantity}개</div>
-                            <div class="order-item-price">${isFree ? '무료' : (2000 * item.quantity).toLocaleString() + '원'}</div>
-                        </div>
-                    </div>
-                `;
+            // 샘플 상품 추가
+            cartData.samples.forEach(item => {
+                const itemElement = createOrderItem(item);
+                orderItemsList.appendChild(itemElement);
+                totalAmount += item.price * item.quantity;
             });
 
-            orderItemsContainer.innerHTML = orderItemsHTML;
+            // 총 금액 업데이트
+            document.getElementById('totalPrice').textContent = totalAmount.toLocaleString() + '원';
+        });
 
-            // 총 결제금액 업데이트
-            let total = 0;
-            selectedProducts.forEach(item => {
-                total += item.price * item.quantity;
-            });
-            selectedSamples.forEach(item => {
-                if (!item.name.includes('히알루론산 에센스') && !item.name.includes('바이오젤')) {
-                    total += 2000 * item.quantity;
-                }
-            });
-            document.querySelector('.order-total-price').textContent = `${total.toLocaleString()}원`;
+        function createOrderItem(item) {
+            const itemDiv = document.createElement('div');
+            itemDiv.className = 'order-item';
+            itemDiv.innerHTML = `
+                <img src="${item.image}" alt="${item.name}" class="order-item-image">
+                <div class="order-item-info">
+                    <div class="order-item-name">${item.name}</div>
+                    <div class="order-item-price">${item.price.toLocaleString()}원</div>
+                    <div class="order-item-quantity">수량: ${item.quantity}개</div>
+                </div>
+            `;
+            return itemDiv;
         }
 
-        // 주문 처리
-        function placeOrder() {
-            const receiverName = document.getElementById('receiverName').value;
-            const receiverPhone = document.getElementById('receiverPhone').value;
-            const receiverAddress = document.getElementById('receiverAddress').value;
-            const usageDuration = document.getElementById('usageDuration').value;
-            const paymentMethod = document.querySelector('input[name="payment"]:checked').value;
-
-            if (!receiverName || !receiverPhone || !receiverAddress) {
-                alert('배송 정보를 모두 입력해주세요.');
-                return;
-            }
-
-            // 주문 정보 저장
-            const cartData = JSON.parse(localStorage.getItem('cart')) || { products: [], samples: [] };
-            const selectedProducts = cartData.products.filter(item => item.checked);
-            const selectedSamples = cartData.samples.filter(item => item.checked);
-            
-            selectedProducts.forEach(item => {
-                item.purchaseDate = new Date().toISOString();
-                item.usageDuration = parseInt(usageDuration);
-            });
-            selectedSamples.forEach(item => {
-                item.purchaseDate = new Date().toISOString();
-                item.usageDuration = parseInt(usageDuration);
-            });
-
-            // 주문 완료 후 체크된 상품 제거
-            cartData.products = cartData.products.filter(item => !item.checked);
-            cartData.samples = cartData.samples.filter(item => !item.checked);
-            localStorage.setItem('cart', JSON.stringify(cartData));
-
-            // 주문 완료 페이지로 이동
+        function processOrder() {
+            // 주문 처리 로직
             alert('주문이 완료되었습니다.');
-            location.href = 'index.html';
+            // 장바구니 비우기
+            localStorage.removeItem('cart');
+            // 홈으로 이동
+            window.location.href = 'index.html';
         }
-
-        // 페이지 로드 시 주문 상품 로드
-        loadOrderItems();
 
         // 검색 기능 관련 스크립트 추가
         const searchBtn = document.querySelector('.search-btn');
