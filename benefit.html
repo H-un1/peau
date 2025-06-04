@@ -143,12 +143,59 @@
             color: #000;
         }
 
-        /* 신제품 슬라이더 스타일 */
+        /* 큐레이터 섹션 스타일 */
+        .curator-section {
+            display: none;
+            padding: 20px;
+            text-align: center;
+            margin-top: 200px;
+        }
+
+        .curator-section.active {
+            display: block;
+        }
+
+        .skin-type-title {
+            font-size: 20px;
+            font-weight: 500;
+            margin-bottom: 30px;
+        }
+
+        .skin-type-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 15px;
+            max-width: 300px;
+            margin: 0 auto;
+        }
+
+        .skin-type-btn {
+            background-color: #f1f1f1;
+            border: none;
+            padding: 15px 0;
+            border-radius: 8px;
+            font-size: 16px;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            color: #666;
+        }
+
+        .skin-type-btn.active {
+            background-color: #333;
+            color: white;
+        }
+
+        /* 신제품 섹션 스타일 */
         .new-products {
+            display: none;
             padding: 15px;
             background: #f5f5f5;
             border-radius: 10px;
             margin: 150px 16px 10px 16px;
+        }
+
+        .new-products.active {
+            display: block;
         }
 
         .slider-container {
@@ -249,7 +296,7 @@
         </nav>
 
         <!-- 신제품 슬라이더 섹션 -->
-        <section class="new-products">
+        <section class="new-products active">
             <div class="slider-container">
                 <div class="slider">
                     <div class="slide">
@@ -271,6 +318,17 @@
                     <div class="slider-dot"></div>
                     <div class="slider-dot"></div>
                 </div>
+            </div>
+        </section>
+
+        <!-- 큐레이터 섹션 -->
+        <section class="curator-section">
+            <h2 class="skin-type-title">AI 큐레이터</h2>
+            <div class="skin-type-grid">
+                <button class="skin-type-btn">민감</button>
+                <button class="skin-type-btn">건성</button>
+                <button class="skin-type-btn">지성</button>
+                <button class="skin-type-btn">수분부족</button>
             </div>
         </section>
 
@@ -383,6 +441,36 @@
 
             // 브라우저 기본 드래그 방지
             slider.addEventListener('dragstart', (e) => e.preventDefault());
+
+            // 탭 전환 기능
+            const categoryItems = document.querySelectorAll('.category-item');
+            const newProductsSection = document.querySelector('.new-products');
+            const curatorSection = document.querySelector('.curator-section');
+
+            categoryItems.forEach(item => {
+                item.addEventListener('click', (e) => {
+                    e.preventDefault();
+                    categoryItems.forEach(i => i.classList.remove('active'));
+                    item.classList.add('active');
+
+                    if (item.textContent === '신제품') {
+                        newProductsSection.classList.add('active');
+                        curatorSection.classList.remove('active');
+                    } else {
+                        newProductsSection.classList.remove('active');
+                        curatorSection.classList.add('active');
+                    }
+                });
+            });
+
+            // 피부타입 버튼 기능
+            const skinTypeButtons = document.querySelectorAll('.skin-type-btn');
+            skinTypeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    skinTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                });
+            });
         });
     </script>
 </body>
