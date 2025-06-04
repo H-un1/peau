@@ -161,6 +161,10 @@
             margin-bottom: 30px;
         }
 
+        .skin-type-title.hidden {
+            display: none;
+        }
+
         .skin-type-grid {
             display: grid;
             grid-template-columns: repeat(2, 1fr);
@@ -307,6 +311,88 @@
         .texture-grid.active {
             display: grid;
         }
+
+        .recommended-products {
+            display: none;
+            padding: 0 20px;
+            margin-top: -40px;
+        }
+
+        .recommended-products.active {
+            display: block;
+        }
+
+        .product-grid {
+            display: grid;
+            grid-template-columns: repeat(2, 1fr);
+            gap: 20px;
+            padding: 0;
+        }
+
+        .product-card {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            text-decoration: none;
+            color: inherit;
+            background: white;
+        }
+
+        .product-card img {
+            width: 100%;
+            height: 170px;
+            object-fit: cover;
+            border-radius: 8px;
+            margin-bottom: 10px;
+        }
+
+        .product-info {
+            padding-top: 5px;
+        }
+
+        .product-brand {
+            font-size: 14px;
+            font-weight: 500;
+            margin-bottom: 4px;
+        }
+
+        .product-name {
+            font-size: 13px;
+            color: #666;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .product-ingredients {
+            font-size: 12px;
+            color: #999;
+            margin-bottom: 8px;
+            line-height: 1.4;
+        }
+
+        .product-price {
+            color: #FF4444;
+            margin: 5px 0;
+            font-size: 14px;
+            font-weight: bold;
+        }
+
+        .product-tags {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 6px;
+            margin-bottom: 6px;
+            justify-content: center;
+        }
+
+        .tag {
+            font-size: 11px;
+            padding: 4px 8px;
+            border-radius: 4px;
+            background-color: #f5f5f5;
+            color: #666;
+            text-align: center;
+        }
     </style>
 </head>
 <body>
@@ -376,6 +462,108 @@
                 <button class="skin-type-btn">리치</button>
                 <button class="skin-type-btn">워터리</button>
                 <button class="skin-type-btn">일반</button>
+            </div>
+            <div class="recommended-products">
+                <div class="product-grid fluid-products">
+                    <div class="product-card">
+                        <img src="curation1.png" alt="시슬리 로션">
+                        <div class="product-info">
+                            <div class="product-brand">시슬리 로션</div>
+                            <div class="product-name">1ml x 4</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">병풀추출물</div>
+                            <div class="product-tags">
+                                <span class="tag">장벽개선</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation2.png" alt="라메르 트리트먼트">
+                        <div class="product-info">
+                            <div class="product-brand">라메르 트리트먼트</div>
+                            <div class="product-name">1ml x 4</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">갈조추출물</div>
+                            <div class="product-tags">
+                                <span class="tag">피부재생</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation3.png" alt="클라랑스 진정 에멀전">
+                        <div class="product-info">
+                            <div class="product-brand">클라랑스 진정 에멀전</div>
+                            <div class="product-name">1ml x 5</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">클라리 세이지</div>
+                            <div class="product-tags">
+                                <span class="tag">피부결 개선</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation4.png" alt="비오템 에센스 인 로션">
+                        <div class="product-info">
+                            <div class="product-brand">비오템 에센스 인 로션</div>
+                            <div class="product-name">1ml x 5</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">플랑크톤</div>
+                            <div class="product-tags">
+                                <span class="tag">장벽강화</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <div class="product-grid rich-products" style="display: none;">
+                    <div class="product-card">
+                        <img src="curation21.png" alt="샤넬 넘버원 크림 리치">
+                        <div class="product-info">
+                            <div class="product-brand">샤넬 넘버원 크림 리치</div>
+                            <div class="product-name">1ml x 3</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">레드 까멜리아</div>
+                            <div class="product-tags">
+                                <span class="tag">항노화</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation22.png" alt="라쥬니르 매트릭실 크림">
+                        <div class="product-info">
+                            <div class="product-brand">라쥬니르 매트릭실 크림</div>
+                            <div class="product-name">1ml x 3</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">매트릭실</div>
+                            <div class="product-tags">
+                                <span class="tag">주름개선</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation23.png" alt="디올 프레스티지 크림">
+                        <div class="product-info">
+                            <div class="product-brand">디올 프레스티지 크림</div>
+                            <div class="product-name">1ml x 2</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">장미추출물</div>
+                            <div class="product-tags">
+                                <span class="tag">주름완화</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="product-card">
+                        <img src="curation24.png" alt="라프레리 스킨캐비아 크림">
+                        <div class="product-info">
+                            <div class="product-brand">라프레리 스킨캐비아 크림</div>
+                            <div class="product-name">1ml x 2</div>
+                            <div class="product-price">6,000원</div>
+                            <div class="product-ingredients">캐비아</div>
+                            <div class="product-tags">
+                                <span class="tag">주름탄력 개선</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
             </div>
         </section>
 
@@ -489,6 +677,109 @@
             // 브라우저 기본 드래그 방지
             slider.addEventListener('dragstart', (e) => e.preventDefault());
 
+            // 선택된 옵션을 저장할 객체
+            let selectedOptions = {
+                skinType: '',
+                concern: '',
+                texture: ''
+            };
+
+            // 피부타입 버튼 기능
+            const skinTypeButtons = document.querySelectorAll('.skin-type-grid .skin-type-btn');
+            const skinTypeGrid = document.querySelector('.skin-type-grid');
+            const skinConcernGrid = document.querySelector('.skin-concern-grid');
+            const skinConcernButtons = document.querySelectorAll('.skin-concern-grid .skin-type-btn');
+            const textureGrid = document.querySelector('.texture-grid');
+            const textureButtons = document.querySelectorAll('.texture-grid .skin-type-btn');
+            const recommendedProducts = document.querySelector('.recommended-products');
+            const productGrid = document.querySelector('.product-grid');
+
+            skinTypeButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    skinTypeButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedOptions.skinType = button.textContent;
+                    
+                    setTimeout(() => {
+                        skinTypeGrid.classList.add('hidden');
+                        skinConcernGrid.classList.add('active');
+                    }, 1000);
+                });
+            });
+
+            // 피부고민 버튼 기능
+            skinConcernButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    skinConcernButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedOptions.concern = button.textContent;
+
+                    setTimeout(() => {
+                        skinConcernGrid.classList.remove('active');
+                        skinConcernGrid.classList.add('hidden');
+                        textureGrid.classList.add('active');
+                    }, 1000);
+                });
+            });
+
+            // 제형 버튼 기능
+            textureButtons.forEach(button => {
+                button.addEventListener('click', () => {
+                    textureButtons.forEach(btn => btn.classList.remove('active'));
+                    button.classList.add('active');
+                    selectedOptions.texture = button.textContent;
+
+                    // 선택된 옵션에 따라 제품 필터링
+                    if ((selectedOptions.skinType === '지성' && 
+                         selectedOptions.concern === '장벽개선' && 
+                         selectedOptions.texture === '플루이드') ||
+                        (selectedOptions.skinType === '건성' && 
+                         selectedOptions.concern === '주름' && 
+                         selectedOptions.texture === '리치')) {
+                        
+                        setTimeout(() => {
+                            textureGrid.classList.remove('active');
+                            textureGrid.classList.add('hidden');
+                            document.querySelector('.skin-type-title').classList.add('hidden');
+                            recommendedProducts.classList.add('active');
+
+                            // 해당하는 제품 그리드 표시
+                            const fluidProducts = document.querySelector('.fluid-products');
+                            const richProducts = document.querySelector('.rich-products');
+                            
+                            if (selectedOptions.texture === '플루이드') {
+                                fluidProducts.style.display = 'grid';
+                                richProducts.style.display = 'none';
+                            } else {
+                                fluidProducts.style.display = 'none';
+                                richProducts.style.display = 'grid';
+                            }
+                        }, 1000);
+                    } else {
+                        // 다른 조합의 경우 처음으로 돌아감
+                        setTimeout(() => {
+                            alert('선택하신 조합에 맞는 제품이 없습니다.');
+                            // 모든 선택 초기화
+                            selectedOptions = {
+                                skinType: '',
+                                concern: '',
+                                texture: ''
+                            };
+                            // 모든 active 클래스 제거
+                            skinTypeButtons.forEach(btn => btn.classList.remove('active'));
+                            skinConcernButtons.forEach(btn => btn.classList.remove('active'));
+                            textureButtons.forEach(btn => btn.classList.remove('active'));
+                            // 첫 화면으로 돌아가기
+                            document.querySelector('.skin-type-title').classList.remove('hidden');
+                            skinTypeGrid.classList.remove('hidden');
+                            skinConcernGrid.classList.remove('active', 'hidden');
+                            textureGrid.classList.remove('active', 'hidden');
+                            recommendedProducts.classList.remove('active');
+                        }, 1000);
+                    }
+                });
+            });
+
             // 탭 전환 기능
             const categoryItems = document.querySelectorAll('.category-item');
             const newProductsSection = document.querySelector('.new-products');
@@ -503,51 +794,26 @@
                     if (item.textContent === '신제품') {
                         newProductsSection.classList.add('active');
                         curatorSection.classList.remove('active');
+                        // 큐레이션 선택 초기화
+                        selectedOptions = {
+                            skinType: '',
+                            concern: '',
+                            texture: ''
+                        };
+                        // 모든 active 클래스 제거
+                        skinTypeButtons.forEach(btn => btn.classList.remove('active'));
+                        skinConcernButtons.forEach(btn => btn.classList.remove('active'));
+                        textureButtons.forEach(btn => btn.classList.remove('active'));
+                        // 모든 화면 초기화
+                        document.querySelector('.skin-type-title').classList.remove('hidden');
+                        skinTypeGrid.classList.remove('hidden');
+                        skinConcernGrid.classList.remove('active', 'hidden');
+                        textureGrid.classList.remove('active', 'hidden');
+                        recommendedProducts.classList.remove('active');
                     } else {
                         newProductsSection.classList.remove('active');
                         curatorSection.classList.add('active');
                     }
-                });
-            });
-
-            // 피부타입 버튼 기능
-            const skinTypeButtons = document.querySelectorAll('.skin-type-grid .skin-type-btn');
-            const skinTypeGrid = document.querySelector('.skin-type-grid');
-            const skinConcernGrid = document.querySelector('.skin-concern-grid');
-            const skinConcernButtons = document.querySelectorAll('.skin-concern-grid .skin-type-btn');
-            const textureGrid = document.querySelector('.texture-grid');
-            const textureButtons = document.querySelectorAll('.texture-grid .skin-type-btn');
-
-            skinTypeButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    skinTypeButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-                    
-                    setTimeout(() => {
-                        skinTypeGrid.classList.add('hidden');
-                        skinConcernGrid.classList.add('active');
-                    }, 1000);
-                });
-            });
-
-            // 피부고민 버튼 기능
-            skinConcernButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    skinConcernButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
-
-                    setTimeout(() => {
-                        skinConcernGrid.classList.add('hidden');
-                        textureGrid.classList.add('active');
-                    }, 1000);
-                });
-            });
-
-            // 제형 버튼 기능
-            textureButtons.forEach(button => {
-                button.addEventListener('click', () => {
-                    textureButtons.forEach(btn => btn.classList.remove('active'));
-                    button.classList.add('active');
                 });
             });
         });
