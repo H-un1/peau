@@ -40,7 +40,9 @@ document.addEventListener('DOMContentLoaded', function() {
 
     // 결제 버튼 슬라이드 기능
     const payButton = document.querySelector('.pay-button');
+    const buttonText = document.querySelector('.pay-button-text');
     let startX = 0;
+    let currentTranslateX = 0;
     let isDragging = false;
 
     payButton.addEventListener('touchstart', (e) => {
@@ -54,30 +56,31 @@ document.addEventListener('DOMContentLoaded', function() {
         
         const currentX = e.touches[0].clientX;
         const diff = currentX - startX;
+        const buttonWidth = payButton.offsetWidth;
         
         if (diff > 0) {
-            payButton.style.transform = `translateX(${Math.min(diff, 100)}px)`;
+            currentTranslateX = Math.min(diff, buttonWidth - 80);
+            payButton.style.transform = `translateX(${currentTranslateX}px)`;
         }
     });
 
-    payButton.addEventListener('touchend', (e) => {
+    payButton.addEventListener('touchend', () => {
         isDragging = false;
         payButton.style.transition = 'transform 0.3s ease';
         
-        const currentX = e.changedTouches[0].clientX;
-        const diff = currentX - startX;
-        
-        if (diff > 100) {
-            // 결제 진행
-            payButton.textContent = '결제 진행 중...';
+        const buttonWidth = payButton.offsetWidth;
+        if (currentTranslateX > buttonWidth * 0.7) {
             payButton.style.transform = 'translateX(0)';
             processPayment();
         } else {
             payButton.style.transform = 'translateX(0)';
         }
+        currentTranslateX = 0;
     });
 
     function processPayment() {
+        buttonText.textContent = '결제 진행 중...';
+        
         // 실제 결제 처리 로직 구현
         setTimeout(() => {
             alert('결제가 완료되었습니다.');
