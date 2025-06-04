@@ -304,6 +304,11 @@
             cursor: pointer;
         }
 
+        .checkout-btn:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+
         .empty-cart {
             text-align: center;
             padding: 60px 0;
@@ -412,8 +417,8 @@
             <div class="search-input-wrapper">
                 <i class="fas fa-search search-icon"></i>
                 <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                <button class="close-search-btn">취소</button>
             </div>
-            <button class="close-search-btn">취소</button>
         </div>
 
         <header>
@@ -792,6 +797,11 @@
             });
 
             document.querySelector('.cart-total-price').textContent = `${total.toLocaleString()}원`;
+
+            // 구매하기 버튼 활성화/비활성화
+            const checkoutBtn = document.querySelector('.checkout-btn');
+            const hasCheckedItems = checkedProducts.length > 0 || checkedSamples.length > 0;
+            checkoutBtn.disabled = !hasCheckedItems;
         }
 
         // 체크박스 변경 이벤트
@@ -821,45 +831,20 @@
 
         // 검색 기능 관련 스크립트 추가
         const searchBtn = document.querySelector('.search-btn');
+        const closeSearchBtn = document.querySelector('.close-search-btn');
         const searchContainer = document.querySelector('.search-container');
-        const searchOverlay = document.querySelector('.search-overlay');
-        const searchClose = document.querySelector('.search-close');
         const searchInput = document.querySelector('.search-input');
 
         // 검색창 열기
         searchBtn.addEventListener('click', () => {
             searchContainer.classList.add('active');
-            searchOverlay.classList.add('active');
             searchInput.focus();
         });
 
         // 검색창 닫기
-        function closeSearch() {
+        closeSearchBtn.addEventListener('click', () => {
             searchContainer.classList.remove('active');
-            searchOverlay.classList.remove('active');
             searchInput.value = '';
-        }
-
-        searchClose.addEventListener('click', closeSearch);
-        searchOverlay.addEventListener('click', closeSearch);
-
-        // ESC 키로 검색창 닫기
-        document.addEventListener('keydown', (e) => {
-            if (e.key === 'Escape') {
-                closeSearch();
-            }
-        });
-
-        // 검색 입력 처리
-        searchInput.addEventListener('keypress', (e) => {
-            if (e.key === 'Enter') {
-                const searchTerm = searchInput.value.trim();
-                if (searchTerm) {
-                    // 여기에 검색 처리 로직 추가
-                    console.log('검색어:', searchTerm);
-                    closeSearch();
-                }
-            }
         });
     </script>
 </body>

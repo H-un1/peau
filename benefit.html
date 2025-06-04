@@ -64,7 +64,7 @@
 
         .header-icons {
             display: flex;
-            gap: 15px;
+            gap: -5px;
         }
 
         .header-icons button {
@@ -394,17 +394,84 @@
             color: #666;
             text-align: center;
         }
+
+        /* 검색창 스타일 */
+        .search-container {
+            position: fixed;
+            top: -60px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 393px;
+            background: white;
+            padding: 10px 16px;
+            box-shadow: 0 2px 6px rgba(0,0,0,0.1);
+            z-index: 9999;
+            transition: transform 0.3s ease-in-out;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            box-sizing: border-box;
+        }
+
+        .search-container.active {
+            transform: translate(-50%, 60px);
+        }
+
+        .search-input-wrapper {
+            flex: 1;
+            display: flex;
+            align-items: center;
+            background: #f5f5f5;
+            border-radius: 8px;
+            padding: 0 12px;
+        }
+
+        .search-input {
+            flex: 1;
+            border: none;
+            background: transparent;
+            padding: 12px 8px;
+            font-size: 14px;
+            outline: none;
+        }
+
+        .search-input::placeholder {
+            color: #999;
+        }
+
+        .search-icon {
+            color: #999;
+            font-size: 16px;
+        }
+
+        .close-search-btn {
+            border: none;
+            background: none;
+            color: #666;
+            font-size: 14px;
+            padding: 8px;
+            cursor: pointer;
+        }
     </style>
 </head>
 <body>
     <div class="app-container">
+        <!-- 검색창 -->
+        <div class="search-container">
+            <div class="search-input-wrapper">
+                <i class="fas fa-search search-icon"></i>
+                <input type="text" class="search-input" placeholder="검색어를 입력하세요">
+                <button class="close-search-btn">취소</button>
+            </div>
+        </div>
+
         <header>
             <div class="logo">
                 <h1>Peau Éclorée</h1>
             </div>
             <div class="header-icons">
                 <button class="search-btn"><i class="fas fa-search"></i></button>
-                <button class="cart-btn"><i class="fas fa-shopping-cart"></i></button>
+                <button class="cart-btn" onclick="location.href='cart.html'"><i class="fas fa-shopping-cart"></i></button>
             </div>
         </header>
 
@@ -808,6 +875,24 @@
                         curatorSection.classList.add('active');
                     }
                 });
+            });
+
+            // 검색 기능 관련 스크립트 추가
+            const searchBtn = document.querySelector('.search-btn');
+            const closeSearchBtn = document.querySelector('.close-search-btn');
+            const searchContainer = document.querySelector('.search-container');
+            const searchInput = document.querySelector('.search-input');
+
+            // 검색창 열기
+            searchBtn.addEventListener('click', () => {
+                searchContainer.classList.add('active');
+                searchInput.focus();
+            });
+
+            // 검색창 닫기
+            closeSearchBtn.addEventListener('click', () => {
+                searchContainer.classList.remove('active');
+                searchInput.value = '';
             });
         });
     </script>
