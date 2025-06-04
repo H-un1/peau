@@ -1,4 +1,75 @@
 document.addEventListener('DOMContentLoaded', function() {
+    // 검색 기능 관련 요소들
+    const searchButton = document.querySelector('.search-btn');
+    const searchContainer = document.querySelector('.search-container');
+    const searchOverlay = document.querySelector('.search-overlay');
+    const searchCloseButton = document.querySelector('.search-close');
+    const searchInput = document.querySelector('.search-input');
+
+    // 검색창 열기
+    if (searchButton) {
+        searchButton.addEventListener('click', function() {
+            searchContainer.classList.add('active');
+            searchOverlay.classList.add('active');
+            searchInput.focus();
+        });
+    }
+
+    // 검색창 닫기
+    if (searchCloseButton) {
+        searchCloseButton.addEventListener('click', function() {
+            searchContainer.classList.remove('active');
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+        });
+    }
+
+    // 오버레이 클릭 시 검색창 닫기
+    if (searchOverlay) {
+        searchOverlay.addEventListener('click', function() {
+            searchContainer.classList.remove('active');
+            searchOverlay.classList.remove('active');
+            searchInput.value = '';
+        });
+    }
+
+    // 캘린더 기능
+    const calendarDays = document.querySelectorAll('.calendar-day:not(.weekday):not(.empty)');
+    
+    calendarDays.forEach(day => {
+        day.addEventListener('click', function() {
+            // 이전에 선택된 날짜의 스타일 제거
+            const previouslySelected = document.querySelector('.calendar-day.selected');
+            if (previouslySelected) {
+                previouslySelected.classList.remove('selected');
+            }
+            
+            // 현재 선택된 날짜에 스타일 적용
+            this.classList.add('selected');
+        });
+    });
+
+    // 샘플 신청 페이지 체크박스 기능
+    const checkboxes = document.querySelectorAll('.sample-item input[type="checkbox"]');
+    const applyButton = document.querySelector('.sample-apply-btn');
+    
+    if (checkboxes.length > 0 && applyButton) {
+        checkboxes.forEach(checkbox => {
+            checkbox.addEventListener('change', function() {
+                const checkedCount = document.querySelectorAll('.sample-item input[type="checkbox"]:checked').length;
+                applyButton.textContent = `${checkedCount}개 샘플 신청하기`;
+                
+                if (checkedCount > 0) {
+                    applyButton.style.backgroundColor = '#000';
+                    applyButton.disabled = false;
+                } else {
+                    applyButton.style.backgroundColor = '#ccc';
+                    applyButton.disabled = true;
+                }
+            });
+        });
+    }
+
     // 캘린더 초기화
     initializeCalendar();
 
